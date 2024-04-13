@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/features/auth/forgetPassword/view/page/forgot_password.dart';
+import 'package:flutter_project/features/auth/registration/view/page/registration.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 
@@ -7,140 +9,115 @@ class RequiredBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: DefaultPadding,
-        child: Column(
-          children: [
-            const SizedBox(height:80),
-            Text(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 200,
+          ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: Text(
               'Welcome Back',
               style: titleText,
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(children: [
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: Row(
+              children: [
               Text(
-                'New to this App ?',
+                'Create an account?',
                 style: subTitle,
               ),
               const SizedBox(
                 width: 5,
               ),
-               GestureDetector(
-                  onTap: () {
-                   // Navigator.push(
-                        //context,
-                       // MaterialPageRoute(
-                          //  builder: (context) => const ));
-                  },
-                  child: Text(
-                    "Sign Up",
-                    style: textButton.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 1),
-                  ),
-               )
-
-            ]),
-            const SizedBox(
-              height: 10,
-            ),
-            //const Login(),
-            Row(children: [
-          Text(
-            "Email",style: subTitle,
-          ),
-         ]
-         ),
-          TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: TextEditingController(),
-              keyboardType: TextInputType.emailAddress,
-              validator: MyValidation().emailValidate,
-              decoration: InputDecoration(
-                hintText: "Enter your email address",
-                prefixIcon:Icon(
-                  Icons.email) ,
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: PrimaryColor, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: SecondaryColor, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-              )),
-              const SizedBox(
-                  height: 10,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegistrationPage()));
+                },
+                child: Text(
+                  "Signup",
+                  style: textButton.copyWith(
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 1),
                 ),
-                Row(children: [
-          Text(
-            "PassWord",style: subTitle,
+              )
+            ]),
           ),
-
-         ]
-         ),
-         TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: TextEditingController(),
-              validator: MyValidation().passwordValidate,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "Enter your password",
-               prefixIcon: const Icon(
-                Icons.lock),
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: PrimaryColor, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: SecondaryColor, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-              )),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(children:[
-             GestureDetector(
-                  onTap: () {
-                    //Navigator.push(
-                       // context,
-                       // MaterialPageRoute(
-                         //   builder: (context) => const ));
-                  },
-                  child: Text(
-                    "Forget Password ?",
-                    style: textButton.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 1),
-                  ),
-             )
-            ]
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-             SizedBox(
-            width: 200,
+          const SizedBox(
+            height: 50,
+          ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: TextEditingController(),
+                keyboardType: TextInputType.emailAddress,
+                validator: MyValidation().emailValidate,
+                decoration: TextFieldDecoration.copyWith(hintText: "Email")),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: TextEditingController(),
+                validator: MyValidation().passwordValidate,
+                obscureText: true,
+                decoration: TextFieldDecoration.copyWith(hintText: "Password")),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: Row(children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordPage()));
+                },
+                child: Text(
+                  "Forget Password?",
+                  style: textButton.copyWith(
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 1),
+                ),
+              )
+            ]),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            width: 350,
             height: 50,
             child: FilledButton(
               style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
               onPressed: () {
-              //  Navigator.push(context,
-                   // MaterialPageRoute(builder: (context) => const ()));
+                //  Navigator.push(context,
+                // MaterialPageRoute(builder: (context) => const ()));
               },
-              child: const Text("Login"),
+              child: Text(
+                "Login",
+                style: textButton.copyWith(color: Colors.white),
+                ),
             ),
-             )
-
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

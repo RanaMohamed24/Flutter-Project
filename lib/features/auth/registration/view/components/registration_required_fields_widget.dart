@@ -15,7 +15,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 50,
+            height: 150,
           ),
           Padding(
             padding: DefaultHorizontalPadding,
@@ -25,7 +25,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 10,
           ),
           Padding(
             padding: DefaultHorizontalPadding,
@@ -46,7 +46,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                             builder: (context) => const LoginPage()));
                   },
                   child: Text(
-                    "Log in",
+                    "Login",
                     style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1),
@@ -56,86 +56,86 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 50,
           ),
           Padding(
-            padding: DefaultPadding,
+            padding: DefaultHorizontalPadding,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().nameValidate,
               obscureText: false,
-              decoration: decoration.copyWith(hintText: "First Name"),
+              decoration: TextFieldDecoration.copyWith(hintText: "First Name"),
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           Padding(
-            padding: DefaultPadding,
+            padding: DefaultHorizontalPadding,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().nameValidate,
               obscureText: false,
-              decoration: decoration.copyWith(hintText: "Last Name"),
+              decoration: TextFieldDecoration.copyWith(hintText: "Last Name"),
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           Padding(
-            padding: DefaultPadding,
+            padding: DefaultHorizontalPadding,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().emailValidate,
               obscureText: false,
-              decoration: decoration.copyWith(
+              decoration: TextFieldDecoration.copyWith(
                   hintText: "Email",
                   prefixIcon: const Icon(Icons.email_outlined)),
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           Padding(
-            padding: DefaultPadding,
+            padding: DefaultHorizontalPadding,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().passwordValidate,
               obscureText: true,
-              decoration: decoration.copyWith(
+              decoration: TextFieldDecoration.copyWith(
                   hintText: "Password", prefixIcon: const Icon(Icons.lock)),
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           Padding(
-            padding: DefaultPadding,
+            padding: DefaultHorizontalPadding,
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().passwordValidate,
               obscureText: true,
-              decoration: decoration.copyWith(
+              decoration: TextFieldDecoration.copyWith(
                   hintText: "Confirm Password",
                   prefixIcon: const Icon(Icons.lock)),
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           SizedBox(
-            width: 200,
-            height: 50,
+            width: 350.0,
+            height: 50.0,
             child: FilledButton(
               style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
@@ -143,7 +143,10 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              child: const Text("Confirm"),
+              child: Text(
+                'Confirm',
+                style: textButton.copyWith(color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -152,17 +155,3 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
   }
 }
 
-InputDecoration decoration = InputDecoration(
-  hintText: "hint",
-  hintStyle: const TextStyle(color: SecondaryColor),
-  prefixIcon: const Icon(Icons.account_circle),
-  border: UnderlineInputBorder(
-      borderSide: const BorderSide(color: SecondaryColor),
-      borderRadius: BorderRadius.circular(0)),
-  focusedBorder: UnderlineInputBorder(
-      borderSide: const BorderSide(color: PrimaryColor, width: 2),
-      borderRadius: BorderRadius.circular(10)),
-  errorBorder: UnderlineInputBorder(
-      borderSide: const BorderSide(color: ErrorColor, width: 2),
-      borderRadius: BorderRadius.circular(0)),
-);
