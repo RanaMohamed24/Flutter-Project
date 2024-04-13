@@ -15,7 +15,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 150,
+            height: 100,
           ),
           Padding(
             padding: DefaultHorizontalPadding,
@@ -133,19 +133,22 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            width: 350.0,
-            height: 50.0,
-            child: FilledButton(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
-              },
-              child: Text(
-                'Confirm',
-                style: textButton.copyWith(color: Colors.white),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: SizedBox(
+              width: 350.0,
+              height: 50.0,
+              child: FilledButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()));
+                },
+                child: Text(
+                  'Confirm',
+                  style: textButton.copyWith(color: Colors.white),
+                ),
               ),
             ),
           ),
