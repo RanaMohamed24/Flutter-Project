@@ -1,7 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/features/auth/registration/view/components/registration_required_fields_widget.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';

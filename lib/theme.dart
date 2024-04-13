@@ -28,7 +28,7 @@ InputDecoration TextFieldDecoration = InputDecoration(
   prefixIcon: const Icon(Icons.account_circle),
   border: UnderlineInputBorder(
       borderSide: const BorderSide(color: SecondaryColor),
-      borderRadius: BorderRadius.circular(5)),
+      borderRadius: BorderRadius.circular(0)),
   focusedBorder: UnderlineInputBorder(
       borderSide: const BorderSide(color: PrimaryColor, width: 2.5),
       borderRadius: BorderRadius.circular(10)),
