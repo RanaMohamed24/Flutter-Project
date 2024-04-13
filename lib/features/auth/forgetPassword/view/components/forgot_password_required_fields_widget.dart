@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/forgetPassword/view/page/reset_pasword.dart';
+import 'package:flutter_project/theme.dart';
 
 class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
   const ForgotPasswordRequiredFieldsWidget({super.key});
@@ -12,7 +14,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 200,
           ),
           Padding(
@@ -22,7 +24,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
               style: titleText,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -33,7 +35,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
           //   height: 10,
           // ),
           Padding(
-            padding: EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5),
             child: TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: TextEditingController(),
@@ -44,7 +46,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
                   prefixIcon: const Icon(Icons.email_outlined)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Padding(
@@ -62,7 +64,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const ResetPasswordPage()));
                     },
-                    child: Text('Reset Password'))),
+                    child: const Text('Reset Password'))),
           ),
         ],
       ),
@@ -85,22 +87,3 @@ InputDecoration decoration = InputDecoration(
       borderRadius: BorderRadius.circular(0)),
 );
 
-const PrimaryColor = Color.fromARGB(255, 1, 69, 72);
-const SecondaryColor = Color.fromARGB(255, 79, 128, 125);
-const TextFieldColor = Color(0xFF979797);
-const FocusedColor = Color(0xFF14292B);
-const ErrorColor = Color(0xFFFF1E1E);
-
-const DefaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 30);
-const DefaultVerticallPadding = EdgeInsets.symmetric(vertical: 5);
-const DefaultPadding = EdgeInsets.all(10);
-
-TextStyle titleText = const TextStyle(
-    color: PrimaryColor, fontSize: 32, fontWeight: FontWeight.w700);
-TextStyle subTitle = const TextStyle(
-    color: SecondaryColor, fontSize: 18, fontWeight: FontWeight.w500);
-TextStyle textButton = const TextStyle(
-  color: PrimaryColor,
-  fontSize: 18,
-  fontWeight: FontWeight.w700,
-);

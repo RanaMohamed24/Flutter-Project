@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 
 class RequiredBodyWidget extends StatelessWidget {
@@ -89,7 +90,7 @@ class RequiredBodyWidget extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                 hintText: "Enter your password",
-               prefixIcon: Icon(
+               prefixIcon: const Icon(
                 Icons.lock),
                 border: OutlineInputBorder(
                     borderSide: const BorderSide(color: PrimaryColor, width: 2),
@@ -144,25 +145,3 @@ class RequiredBodyWidget extends StatelessWidget {
     );
   }
 }
-
-const PrimaryColor = Color.fromARGB(255, 26, 86, 90);
-const SecondaryColor = Color(0xFF59706F);
-const TextFieldColor = Color(0xFF979797);
-const BlackColor = Color(0xFF272726);
-const DarkGreyColor = Color(0xFFA8A8A8);
-const WhiteColor = Color(0xFFFFFFFF);
-const ZambeziColor = Color(0xFF5B5B5B);
-
-const DefaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 30);
-const DefaultVerticallPadding = EdgeInsets.symmetric(vertical: 5);
-const DefaultPadding = EdgeInsets.all(10);
-
-TextStyle titleText = const TextStyle(
-    color: PrimaryColor, fontSize: 32, fontWeight: FontWeight.w700);
-TextStyle subTitle = const TextStyle(
-    color: SecondaryColor, fontSize: 18, fontWeight: FontWeight.w500);
-TextStyle textButton = const TextStyle(
-  color: PrimaryColor,
-  fontSize: 18,
-  fontWeight: FontWeight.w700,
-);
