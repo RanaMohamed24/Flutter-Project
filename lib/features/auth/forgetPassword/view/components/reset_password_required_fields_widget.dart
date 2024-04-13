@@ -33,6 +33,7 @@ class ResetPasswordRequiredFieldsWidget extends StatelessWidget {
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().passwordValidate,
+              obscureText: true,
               decoration: TextFieldDecoration.copyWith(
                 hintText: "New Password",
                 prefixIcon: const Icon(Icons.lock),
@@ -49,6 +50,7 @@ class ResetPasswordRequiredFieldsWidget extends StatelessWidget {
               controller: TextEditingController(),
               keyboardType: TextInputType.name,
               validator: MyValidation().passwordValidate,
+              obscureText: true,
               decoration: TextFieldDecoration.copyWith(
                 hintText: "Confirm Password",
                 prefixIcon: const Icon(Icons.lock),
