@@ -21,3 +21,8 @@ TextStyle textButton = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
+TextStyle textButton1 = const TextStyle(
+  color: PrimaryColor,
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
