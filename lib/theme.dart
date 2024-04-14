@@ -21,6 +21,8 @@ TextStyle textButton = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.bold,
 );
+TextStyle onboardingTitle = const TextStyle(
+    color: PrimaryColor, fontSize: 24, fontWeight: FontWeight.w600);
 
 InputDecoration TextFieldDecoration = InputDecoration(
   hintText: "hint",
@@ -35,4 +37,14 @@ InputDecoration TextFieldDecoration = InputDecoration(
   errorBorder: UnderlineInputBorder(
       borderSide: const BorderSide(color: ErrorColor, width: 2),
       borderRadius: BorderRadius.circular(0)),
+);
+
+InputDecoration OtpTextFieldDecoration = InputDecoration(
+  border: OutlineInputBorder(
+    borderSide: const BorderSide(color: SecondaryColor),
+    borderRadius: BorderRadius.circular(10),
+  ),
+  focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: PrimaryColor, width: 2.5),
+      borderRadius: BorderRadius.circular(20)),
 );
