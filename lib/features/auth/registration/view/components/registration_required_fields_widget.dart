@@ -161,7 +161,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
-                      onPressed: () {
+                      onPressed: (){
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(
                             context,
