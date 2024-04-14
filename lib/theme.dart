@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-const PrimaryColor = Color.fromARGB(255, 17, 75, 142);
-const SecondaryColor = Color.fromARGB(255, 47, 114, 190);
+const PrimaryColor = Color.fromARGB(255, 2, 82, 179);
+const SecondaryColor = Color.fromARGB(255, 55, 122, 230);
 const TextFieldColor = Color(0xffffffff);
-const FocusedColor = Color(0xff0e335c);
+const FocusedColor = Color.fromARGB(255, 10, 32, 99);
 const ErrorColor = Color(0xFFFF1E1E);
 
 const DefaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 30);
@@ -22,7 +22,10 @@ TextStyle textButton = const TextStyle(
   fontWeight: FontWeight.bold,
 );
 TextStyle onboardingTitle = const TextStyle(
-    color: PrimaryColor, fontSize: 24, fontWeight: FontWeight.w600);
+    color: PrimaryColor, fontSize: 24, fontWeight: FontWeight.bold);
+
+TextStyle onboardingSubTitle = const TextStyle(
+    color: SecondaryColor, fontSize: 14, fontWeight: FontWeight.w500);
 
 InputDecoration TextFieldDecoration = InputDecoration(
   hintText: "hint",

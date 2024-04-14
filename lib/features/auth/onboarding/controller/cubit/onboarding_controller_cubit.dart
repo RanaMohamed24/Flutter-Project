@@ -16,7 +16,7 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
 
   void onChangeToNext() {
     pageController.nextPage(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       curve: Curves.bounceIn,
     );
   }
@@ -36,10 +36,11 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
 
   List data = [
     OnboardingModel(
-        img: 'assets/image/logo.jpeg', title: 'first', subtitle: 'subtitle'),
-    OnboardingModel(
-        img: 'assets/image/logo.jpeg', title: 'second', subtitle: 'subtitle'),
-    OnboardingModel(
-        img: 'assets/image/logo.jpeg', title: 'third', subtitle: 'subtitle')
+        img: 'assets/image/game-plan.png',
+        title: 'Take Control of Your Day..',
+        subtitle:
+            'Make every day count - start planning now'),
+    OnboardingModel(img: 'assets/image/goal.png', title: 'Focus on What Matters Most..', subtitle: 'Get organized and achieve your goals'),
+    OnboardingModel(img: 'assets/image/break.png', title: 'From To-Do to Done!', subtitle: 'Get started now and unlock your full potential')
   ];
 }

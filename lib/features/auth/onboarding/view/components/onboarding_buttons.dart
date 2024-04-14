@@ -22,8 +22,8 @@ class OnboardingButtonsWidget extends StatelessWidget {
             children: [
               // Skip Button
               SizedBox(
-                width: 100.0,
-                height: 45.0,
+                width: 150.0,
+                height: 50.0,
                 child: FilledButton(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
@@ -38,8 +38,8 @@ class OnboardingButtonsWidget extends StatelessWidget {
               ),
               // Next Button
               SizedBox(
-                width: 100.0,
-                height: 45.0,
+                width: 150.0,
+                height: 50.0,
                 child: FilledButton(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(PrimaryColor)),

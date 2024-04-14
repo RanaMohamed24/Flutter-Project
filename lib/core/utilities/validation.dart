@@ -27,6 +27,8 @@ class MyValidation {
     } else if (input.length < 6) {
       return 'Password must be at least 6 characters long';
     }
-    return null;
+    return null; //validation passed
   }
 }
+
+

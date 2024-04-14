@@ -3,17 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/registration/controller/cubit/registration_cubit.dart';
-import 'package:flutter_project/features/auth/verfication/view/page/verfication.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
 
 // ignore: must_be_immutable
 class RegistrationRequiredFieldsWidget extends StatelessWidget {
-  RegistrationRequiredFieldsWidget({super.key, required this.controller});
+  const RegistrationRequiredFieldsWidget({super.key, required this.controller});
   final RegistrationCubit controller;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +20,11 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: controller.formKey,
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 150,
+                    height: 100,
                   ),
                   Padding(
                     padding: DefaultHorizontalPadding,
@@ -139,7 +136,10 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       controller: TextEditingController(),
                       keyboardType: TextInputType.visiblePassword,
                       validator: (value) {
-                        if (value != controller.passwordController.text) {
+                        if (value!.isEmpty) {
+                          return 'required field';
+                        } 
+                        else if (value != controller.passwordController.text) {
                           return 'Passwords do not match';
                         }
                         return null;
@@ -153,7 +153,6 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  // confirm Button
                   SizedBox(
                     width: 350.0,
                     height: 50.0,
@@ -161,16 +160,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const VerificationPage()),
-                          );
-                        }
-                      },
+                      onPressed: () => controller.onPressedConfirmButton(context),
                       child: Text(
                         'Confirm',
                         style: textButton.copyWith(color: Colors.white),

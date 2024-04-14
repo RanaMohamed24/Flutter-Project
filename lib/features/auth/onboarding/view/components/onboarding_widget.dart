@@ -12,7 +12,6 @@ class OnboardingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text('Welcome to our App'),
         Expanded(
           child: BlocProvider<OnboardingControllerCubit>.value(
             value: controller,
@@ -27,14 +26,29 @@ class OnboardingWidget extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(controller.data[index].img),
                           Text(
                             controller.data[index].title,
                             style: onboardingTitle,
                           ),
-                          Text(
-                            controller.data[index].subtitle,
-                            style: subTitle,
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                            child: Padding(
+                              padding: DefaultHorizontalPadding,
+                              child: Text(
+                                controller.data[index].subtitle,
+                                style: onboardingSubTitle,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: Image.asset(controller.data[index].img),
                           ),
                         ],
                       );

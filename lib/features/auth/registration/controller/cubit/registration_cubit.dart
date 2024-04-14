@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-//import 'package:meta/meta.dart';
+import 'package:flutter_project/features/auth/verfication/view/page/verfication.dart';
 
 part 'registration_state.dart';
 
@@ -15,13 +13,13 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void onPressedConfirmButton() {
+  void onPressedConfirmButton(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      log(firstNameController.text);
-      log(lastNameController.text);
-      log(emailController.text);
-    } else {
-      log('invalid inputs');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const VerificationPage()),
+      );
     }
+    
   }
 }

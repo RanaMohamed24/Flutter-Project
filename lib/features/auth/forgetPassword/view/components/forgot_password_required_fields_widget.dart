@@ -1,85 +1,93 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
-import 'package:flutter_project/features/auth/forgetPassword/view/page/reset_pasword.dart';
+import 'package:flutter_project/features/auth/forgetPassword/controller/cubit/forget_password_cubit.dart';
 import 'package:flutter_project/theme.dart';
 
 class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
-  const ForgotPasswordRequiredFieldsWidget({Key? key});
+  const ForgotPasswordRequiredFieldsWidget(
+      {Key? key, required this.controller});
+  final ForgetPasswordCubit controller;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: DefaultPadding,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 200,
-          ),
-          Padding(
-            padding: DefaultHorizontalPadding,
-            child: Text(
-              'Forget Password',
-              style: titleText,
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Padding(
-            padding: DefaultHorizontalPadding,
-            child: Row(
-              children: [
-                Text(
-                  'Please enter your email address',
-                  style: subTitle,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 5),
-          Padding(
-            padding: DefaultHorizontalPadding,
-            child: TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: TextEditingController(),
-              keyboardType: TextInputType.emailAddress,
-              validator: MyValidation().emailValidate,
-              decoration: TextFieldDecoration.copyWith(
-                hintText: "Email",
-                prefixIcon: const Icon(Icons.email_outlined),
-              ),
-            ),
-          ),
-          const SizedBox(height: 30),
-          Center(
-            child: Padding(
-              padding: DefaultHorizontalPadding,
-              child: SizedBox(
-                width: 350.0,
-                height: 50.0,
-                child: FilledButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(PrimaryColor),
+    return BlocProvider.value(
+      value: controller,
+      child: BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            padding: DefaultPadding,
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 200,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ResetPasswordPage(),
+                  Padding(
+                    padding: DefaultHorizontalPadding,
+                    child: Text(
+                      'Forget Password',
+                      style: titleText,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: DefaultHorizontalPadding,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Please enter your email address',
+                          style: subTitle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: DefaultHorizontalPadding,
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: controller.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: MyValidation().emailValidate,
+                      decoration: TextFieldDecoration.copyWith(
+                        hintText: "Email",
+                        prefixIcon: const Icon(Icons.email_outlined),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Reset Password',
-                    style: textButton.copyWith(color: Colors.white),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: Padding(
+                      padding: DefaultHorizontalPadding,
+                      child: SizedBox(
+                        width: 350.0,
+                        height: 50.0,
+                        child: FilledButton(
+                          style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(PrimaryColor),
+                          ),
+                          onPressed: () =>
+                              controller.onPressedConfirmButton(context),
+                          child: Text(
+                            'Reset Password',
+                            style: textButton.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
