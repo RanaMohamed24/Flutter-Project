@@ -14,6 +14,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void onPressedConfirmButton(BuildContext context) {
+  void onPressedConfirmButton(BuildContext context) {
     if (formKey.currentState!.validate()) {
       Navigator.push(
         context,
