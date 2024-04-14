@@ -2,7 +2,6 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
 import 'package:flutter_project/features/auth/onboarding/model/onboarding_model.dart';
 import 'package:flutter_project/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,11 +14,15 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
 
   PageController pageController = PageController();
 
-  void onChangeToNext() {
-    pageController.nextPage(
-      duration: const Duration(seconds: 1),
-      curve: Curves.bounceIn,
-    );
+  void onChangeToNext(BuildContext context) {
+    if (pageController.page == data.length - 1) {
+      onCallSkip(context);
+    } else {
+      pageController.nextPage(
+        duration: const Duration(seconds: 1),
+        curve: Curves.bounceIn,
+      );
+    }
   }
 
   Future<void> onCallSkip(BuildContext context) async {

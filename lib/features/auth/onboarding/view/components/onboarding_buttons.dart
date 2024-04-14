@@ -44,7 +44,7 @@ class OnboardingButtonsWidget extends StatelessWidget {
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
                   onPressed: () {
-                    controller.onChangeToNext();
+                    controller.onChangeToNext(context);
                   },
                   child: Text(
                     'Next',
