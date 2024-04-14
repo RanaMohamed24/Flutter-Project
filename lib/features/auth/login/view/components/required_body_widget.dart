@@ -13,7 +13,7 @@ class RequiredBodyWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 200,
+            height: 150,
           ),
           Padding(
             padding: DefaultHorizontalPadding,
@@ -53,7 +53,7 @@ class RequiredBodyWidget extends StatelessWidget {
             ]),
           ),
           const SizedBox(
-            height: 50,
+            height: 80,
           ),
           Padding(
             padding: DefaultHorizontalPadding,
@@ -101,20 +101,23 @@ class RequiredBodyWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            width: 350,
-            height: 50,
-            child: FilledButton(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
-              onPressed: () {
-                //  Navigator.push(context,
-                // MaterialPageRoute(builder: (context) => const ()));
-              },
-              child: Text(
-                "Login",
-                style: textButton.copyWith(color: Colors.white),
-                ),
+          Padding(
+            padding: DefaultHorizontalPadding,
+            child: SizedBox(
+              width: 350,
+              height: 50,
+              child: FilledButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(PrimaryColor)),
+                onPressed: () {
+                  //  Navigator.push(context,
+                  // MaterialPageRoute(builder: (context) => const ()));
+                },
+                child: Text(
+                  "Login",
+                  style: textButton.copyWith(color: Colors.white),
+                  ),
+              ),
             ),
           )
         ],

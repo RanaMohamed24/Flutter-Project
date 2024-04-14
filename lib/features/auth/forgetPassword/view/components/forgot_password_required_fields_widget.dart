@@ -10,7 +10,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: DefaultPadding,
       child: Column(
         children: [
@@ -20,7 +20,7 @@ class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
           Padding(
             padding: DefaultHorizontalPadding,
             child: Text(
-              'Forgot Password',
+              'Forget Password',
               style: titleText,
             ),
           ),

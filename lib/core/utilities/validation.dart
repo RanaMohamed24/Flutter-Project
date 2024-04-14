@@ -16,7 +16,7 @@ class MyValidation {
     if (input!.isEmpty) {
       return 'required field';
     } else if (!emailRegx.hasMatch(input)) {
-      return 'ivalid email';
+      return 'invalid email';
     }
     return null; //validation passed
   }
