@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,17 +11,19 @@ import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
 // ignore: must_be_immutable
 class RegistrationRequiredFieldsWidget extends StatelessWidget {
   RegistrationRequiredFieldsWidget({super.key, required this.controller});
-  RegistrationCubit controller;
+  final RegistrationCubit controller;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: controller,
       child: BlocBuilder<RegistrationCubit, RegistrationState>(
         builder: (context, state) {
-          RegistrationCubit controller = context.read<RegistrationCubit>();
           return SingleChildScrollView(
             child: Form(
-              key: controller.formKey,
+              key: _formKey,
               child: Column(
                 children: [
                   const SizedBox(
@@ -68,7 +70,6 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  // First name
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
@@ -77,14 +78,13 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       keyboardType: TextInputType.name,
                       validator: MyValidation().nameValidate,
                       obscureText: false,
-                      decoration:
-                          TextFieldDecoration.copyWith(hintText: "First Name"),
+                      decoration: TextFieldDecoration.copyWith(
+                          hintText: "First Name"),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  // Last Name
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
@@ -93,20 +93,19 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       keyboardType: TextInputType.name,
                       validator: MyValidation().nameValidate,
                       obscureText: false,
-                      decoration:
-                          TextFieldDecoration.copyWith(hintText: "Last Name"),
+                      decoration: TextFieldDecoration.copyWith(
+                          hintText: "Last Name"),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  // Email
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: controller.emailController,
-                      keyboardType: TextInputType.name,
+                      keyboardType: TextInputType.emailAddress,
                       validator: MyValidation().emailValidate,
                       obscureText: false,
                       decoration: TextFieldDecoration.copyWith(
@@ -117,13 +116,12 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Password
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: controller.passwordController,
-                      keyboardType: TextInputType.name,
+                      keyboardType: TextInputType.visiblePassword,
                       validator: MyValidation().passwordValidate,
                       obscureText: true,
                       decoration: TextFieldDecoration.copyWith(
@@ -134,14 +132,18 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Confirm Password
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: TextEditingController(),
-                      keyboardType: TextInputType.name,
-                      validator: MyValidation().passwordValidate,
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (value) {
+                        if (value != controller.passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
                       obscureText: true,
                       decoration: TextFieldDecoration.copyWith(
                           hintText: "Confirm Password",
@@ -156,16 +158,18 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                     width: 350.0,
                     height: 50.0,
                     child: FilledButton(
-                      style: const ButtonStyle(
+                      style: ButtonStyle(
                           backgroundColor:
-                              MaterialStatePropertyAll(PrimaryColor)),
+                              MaterialStateProperty.all(PrimaryColor)),
                       onPressed: () {
-                        controller.onPressedConfirmButton();
-                        Navigator.push(
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const VerificationPage()));
+                                    const VerificationPage()),
+                          );
+                        }
                       },
                       child: Text(
                         'Confirm',
