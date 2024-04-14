@@ -13,11 +13,10 @@ void main() async {
 
   bool onBoarding = sharedPreferences.getBool('onboarding') ?? false;
   MaterialApp materialApp =  MaterialApp(
-      home: onBoarding ? const LoginPage() : const OnBoardingPage(),
       onGenerateRoute:OnGenerateRoute ,
       onGenerateInitialRoutes:(_)=>[
         MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const SplashScreen(),
+        builder: (BuildContext context) => const OnBoardingPage(),
       ),
       ] ,
       );

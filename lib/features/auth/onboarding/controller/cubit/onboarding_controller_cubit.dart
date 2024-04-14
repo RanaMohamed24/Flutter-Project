@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
 import 'package:flutter_project/features/auth/onboarding/model/onboarding_model.dart';
+import 'package:flutter_project/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:meta/meta.dart';
 
@@ -29,7 +30,7 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
       // ignore: use_build_context_synchronously
       context,
       MaterialPageRoute<void>(
-        builder: (BuildContext context) => const LoginPage(),
+        builder: (BuildContext context) => const SplashScreen(),
       ),
     );
   }
