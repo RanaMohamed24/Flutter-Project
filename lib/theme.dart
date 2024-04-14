@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-const PrimaryColor = Color.fromARGB(255, 1, 69, 72);
-const SecondaryColor = Color.fromARGB(255, 79, 128, 125);
-const TextFieldColor = Color(0xFF979797);
-const FocusedColor = Color(0xFF14292B);
+const PrimaryColor = Color.fromARGB(255, 17, 75, 142);
+const SecondaryColor = Color.fromARGB(255, 47, 114, 190);
+const TextFieldColor = Color(0xffffffff);
+const FocusedColor = Color(0xff0e335c);
 const ErrorColor = Color(0xFFFF1E1E);
 
 const DefaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 30);

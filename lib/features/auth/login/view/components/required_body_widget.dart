@@ -27,8 +27,7 @@ class RequiredBodyWidget extends StatelessWidget {
           ),
           Padding(
             padding: DefaultHorizontalPadding,
-            child: Row(
-              children: [
+            child: Row(children: [
               Text(
                 'Create an account?',
                 style: subTitle,
@@ -62,7 +61,9 @@ class RequiredBodyWidget extends StatelessWidget {
                 controller: TextEditingController(),
                 keyboardType: TextInputType.emailAddress,
                 validator: MyValidation().emailValidate,
-                decoration: TextFieldDecoration.copyWith(hintText: "Email")),
+                decoration: TextFieldDecoration.copyWith(
+                    hintText: "Email",
+                    prefixIcon: const Icon(Icons.email_outlined))),
           ),
           const SizedBox(
             height: 20,
@@ -70,11 +71,13 @@ class RequiredBodyWidget extends StatelessWidget {
           Padding(
             padding: DefaultHorizontalPadding,
             child: TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: TextEditingController(),
-                validator: MyValidation().passwordValidate,
-                obscureText: true,
-                decoration: TextFieldDecoration.copyWith(hintText: "Password")),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              controller: TextEditingController(),
+              validator: MyValidation().passwordValidate,
+              obscureText: true,
+              decoration: TextFieldDecoration.copyWith(
+                  hintText: "Password", prefixIcon: const Icon(Icons.lock)),
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -116,7 +119,7 @@ class RequiredBodyWidget extends StatelessWidget {
                 child: Text(
                   "Login",
                   style: textButton.copyWith(color: Colors.white),
-                  ),
+                ),
               ),
             ),
           )

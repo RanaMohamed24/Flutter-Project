@@ -16,7 +16,7 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
 
   void onChangeToNext() {
     pageController.nextPage(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       curve: Curves.bounceIn,
     );
   }
