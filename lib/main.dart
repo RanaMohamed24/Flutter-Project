@@ -1,8 +1,8 @@
+// ignore_for_file: unused_local_variable, non_constant_identifier_names
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import "package:flutter/material.dart";
-import 'package:flutter/widgets.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
-import 'package:lottie/lottie.dart'; // Adjust the import path
 import 'package:flutter_project/features/auth/onboarding/view/page/onboarding.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
