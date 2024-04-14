@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
+import 'package:flutter_project/features/auth/registration/view/page/registration.dart';
 import 'package:lottie/lottie.dart'; // Adjust the import path
 import 'package:flutter_project/features/auth/onboarding/view/page/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,9 +12,32 @@ void main() async {
 
   bool onBoarding = sharedPreferences.getBool('onboarding') ?? false;
 
-  MaterialApp materialApp = MaterialApp(
-      home: onBoarding ? const LoginPage() : const OnBoardingPage());
+  MaterialApp materialApp =  MaterialApp(
+      //home: onBoarding ? const LoginPage() : const OnBoardingPage(),
+      onGenerateRoute:OnGenerateRoute ,
+      onGenerateInitialRoutes:(_)=>[
+        MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const OnBoardingPage(),
+      ),
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const RegistrationPage(),
+      )
+
+      ] ,
+      );
   runApp(materialApp);
+}
+Route<dynamic>OnGenerateRoute(RouteSettings settings) {
+if(settings.name=='login'){
+  return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const LoginPage(),
+      );
+}
+else{
+   return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const OnBoardingPage(),
+      );
+}
 }
 
 class MyApp extends StatelessWidget {

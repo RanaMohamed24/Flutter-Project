@@ -20,6 +20,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       log(firstNameController.text);
       log(lastNameController.text);
       log(emailController.text);
+      
     } else {
       log('invalid inputs');
     }

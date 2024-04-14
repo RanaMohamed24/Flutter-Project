@@ -48,3 +48,8 @@ InputDecoration OtpTextFieldDecoration = InputDecoration(
       borderSide: const BorderSide(color: PrimaryColor, width: 2.5),
       borderRadius: BorderRadius.circular(20)),
 );
+
+extension MyContextExtenction on BuildContext {
+  double get width => MediaQuery.of(this).size.width;
+  double get height => MediaQuery.of(this).size.height;
+}
