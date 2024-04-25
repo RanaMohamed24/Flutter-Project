@@ -1,5 +1,6 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, deprecated_member_use
 
+import 'package:device_preview/device_preview.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_project/core/utilities/my_routes.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
@@ -12,8 +13,9 @@ void main() async {
 
   bool onBoarding = sharedPreferences.getBool('onboarding') ?? false;
   MaterialApp materialApp = MaterialApp(
-    // home: onBoarding ? const LoginPage() : const OnBoardingPage(),
+    builder: DevicePreview.appBuilder,
     onGenerateRoute: MyRoutes.onGenerateRoute,
+    useInheritedMediaQuery: true,
     onGenerateInitialRoutes: (_) => [
       MaterialPageRoute<dynamic>(
         builder: (BuildContext context) =>
@@ -21,7 +23,12 @@ void main() async {
       ),
     ],
   );
-  runApp(materialApp);
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => materialApp, // Wrap your app
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
