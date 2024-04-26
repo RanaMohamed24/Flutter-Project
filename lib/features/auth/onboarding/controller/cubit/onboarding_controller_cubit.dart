@@ -19,8 +19,8 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
       onCallSkip(context);
     } else {
       pageController.nextPage(
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.bounceIn,
+        duration: const Duration(microseconds: 500),
+        curve: Curves.linear,
       );
     }
   }
