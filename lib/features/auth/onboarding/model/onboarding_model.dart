@@ -1,8 +1,8 @@
 class OnboardingModel {
-  late String img, title, subtitle;
+  late String img, title, description;
   OnboardingModel({
-    required this.img,
     required this.title,
-    required this.subtitle,
+    required this.description,
+    required this.img,
   });
 }

@@ -37,7 +37,7 @@ class OnboardingWidget extends StatelessWidget {
                             child: Padding(
                               padding: DefaultHorizontalPadding,
                               child: Text(
-                                controller.data[index].subtitle,
+                                controller.data[index].description,
                                 style: onboardingSubTitle,
                               ),
                             ),

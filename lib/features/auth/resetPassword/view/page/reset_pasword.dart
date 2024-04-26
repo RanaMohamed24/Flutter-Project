@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project/features/auth/forgetPassword/controller/cubit/reset_password_cubit.dart';
-import 'package:flutter_project/features/auth/forgetPassword/view/components/reset_password_required_fields_widget.dart';
+import 'package:flutter_project/features/auth/resetPassword/controller/cubit/reset_password_cubit.dart';
+import 'package:flutter_project/features/auth/resetPassword/view/components/reset_password_required_fields_widget.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});

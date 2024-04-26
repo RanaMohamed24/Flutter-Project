@@ -19,7 +19,7 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
       onCallSkip(context);
     } else {
       pageController.nextPage(
-        duration: const Duration(microseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.bounceIn,
       );
     }
@@ -40,16 +40,19 @@ class OnboardingControllerCubit extends Cubit<OnboardingControllerState> {
 
   List data = [
     OnboardingModel(
-        img: 'assets/images/game-plan.png',
-        title: 'Take Control of Your Day..',
-        subtitle: 'Make every day count - start planning now'),
+      title: 'Welcome to our To-Do-List!',
+      description: 'Manage your tasks easily with our app.',
+      img: 'assets/images/to-do-list.png',
+    ),
     OnboardingModel(
-        img: 'assets/images/goal.png',
-        title: 'Focus on What Matters Most..',
-        subtitle: 'Get organized and achieve your goals'),
+      title: 'Add Tasks',
+      description: 'Easily add tasks and organize them.',
+      img: 'assets/images/multitasking.png',
+    ),
     OnboardingModel(
-        img: 'assets/images/break.png',
-        title: 'From To-Do to Done!',
-        subtitle: 'Get started now and unlock your full potential')
+      title: 'Stay Organized',
+      description: 'Keep track of your tasks and stay productive.',
+      img: 'assets/images/urgent.png',
+    )
   ];
 }
