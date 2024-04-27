@@ -3,10 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project/features/dashboard/view/components/cubit/cubit/dashboard_cubit.dart';
+import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/users/view/user_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class DashboardPage extends StatelessWidget {
+  final List<String> titles = const ['Home', 'Users', 'home'];
+
   const DashboardPage({super.key});
 
   @override
@@ -19,13 +22,21 @@ class DashboardPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
+              title: Text(titles[controller.selectedTapIndex]),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'registration');
+                    },
+                    icon: Icon(CupertinoIcons.add))
+              ],
             ),
             body: PageView(
               controller: controller.pageController,
               onPageChanged: controller.onChangeTapIndex,
               children: const [
                 Text('Home'),
-                Text('Home'),
+                UserPage(),
                 Text('Home'),
               ],
             ),
@@ -34,14 +45,17 @@ class DashboardPage extends StatelessWidget {
               onTap: controller.onChangeTapIndex,
               unselectedItemColor: SecondaryColor,
               showUnselectedLabels: true,
-              unselectedLabelStyle: const TextStyle(fontSize: 15, color: PrimaryColor),
-              items: const[
-                BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "Home"),
-                BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "Home"),
-                BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "Home"),
+              unselectedLabelStyle:
+                  const TextStyle(fontSize: 15, color: PrimaryColor),
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.home), label: "Home"),
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.home), label: "Users"),
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.home), label: "Home"),
               ],
             ),
-            
           );
         },
       ),
