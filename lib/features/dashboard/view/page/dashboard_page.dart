@@ -21,8 +21,17 @@ class DashboardPage extends StatelessWidget {
           DashboardCubit controller = context.read<DashboardCubit>();
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
-              title: Text(titles[controller.selectedTapIndex]),
+              backgroundColor: PrimaryColor,
+              title: Center(
+                child: Text(
+                  titles[controller.selectedTapIndex],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               actions: [
                 IconButton(
                     onPressed: () {
@@ -43,10 +52,11 @@ class DashboardPage extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: controller.selectedTapIndex,
               onTap: controller.onChangeTapIndex,
-              unselectedItemColor: SecondaryColor,
+              unselectedItemColor: PrimaryColor,
               showUnselectedLabels: true,
               unselectedLabelStyle:
                   const TextStyle(fontSize: 15, color: PrimaryColor),
+              selectedItemColor: FocusedColor,
               items: const [
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.home), label: "Home"),

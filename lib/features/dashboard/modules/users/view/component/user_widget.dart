@@ -8,16 +8,21 @@ class UserItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: TextFieldColor,
+      color: SecondaryColor,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             userModel.name ?? 'xxx',
-            style: titleText,
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w200, fontSize: 18),
           ),
-          Text(
-            userModel.address ?? 'xxx',
-            style: subTitle,
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 3),
+            child: Text(
+              userModel.address ?? 'xxx',
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ],
       ),

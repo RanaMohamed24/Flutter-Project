@@ -1,8 +1,11 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/registration/controller/cubit/registration_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/users/model/repo/local_db_data.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
@@ -75,8 +78,8 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       keyboardType: TextInputType.name,
                       validator: MyValidation().nameValidate,
                       obscureText: false,
-                      decoration: TextFieldDecoration.copyWith(
-                          hintText: "First Name"),
+                      decoration:
+                          TextFieldDecoration.copyWith(hintText: "First Name"),
                     ),
                   ),
                   const SizedBox(
@@ -90,8 +93,8 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       keyboardType: TextInputType.name,
                       validator: MyValidation().nameValidate,
                       obscureText: false,
-                      decoration: TextFieldDecoration.copyWith(
-                          hintText: "Last Name"),
+                      decoration:
+                          TextFieldDecoration.copyWith(hintText: "Last Name"),
                     ),
                   ),
                   const SizedBox(
@@ -138,8 +141,8 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'required field';
-                        } 
-                        else if (value != controller.passwordController.text) {
+                        } else if (value !=
+                            controller.passwordController.text) {
                           return 'Passwords do not match';
                         }
                         return null;
@@ -160,7 +163,12 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
-                      onPressed: () => controller.onPressedConfirmButton(context),
+                      onPressed: () async {
+                        await (await DatabaseRepo.instance)
+                            .insert(name: 'Ahmed', address: 'Cairo');
+                        log('Added successfully');
+                        // controller.onPressedConfirmButton(context),
+                      },
                       child: Text(
                         'Confirm',
                         style: textButton.copyWith(color: Colors.white),
