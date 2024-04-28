@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("home", style: titleText,)),
+      body: Center(child: Text("Home", style: titleText,)),
     );
   }
 }
