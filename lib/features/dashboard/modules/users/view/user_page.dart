@@ -24,7 +24,11 @@ class UserPage extends StatelessWidget {
                         size: 100,
                         color: Colors.grey,
                       ))
-                    : ListView.builder(
+                    : ListView.separated(
+                        separatorBuilder: (_, int index) => const Divider(
+                              height: 2,
+                              thickness: 4,
+                            ),
                         itemCount: controller.users.length,
                         itemBuilder: (_, int index) {
                           return UserItemWidget(
