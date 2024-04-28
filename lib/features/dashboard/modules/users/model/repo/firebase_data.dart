@@ -28,11 +28,17 @@ class FirebaseRepo extends ParentRepo {
   }
 
   @override
-  Future<void> delete({required int id}) async {
+  Future<void> update({required int id}) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     await users.doc(id.toString()).update({'company': 'Stokes and Sons'}).then(
         (_) => print("User Updated"));
     // .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  @override
+  Future<void> delete({required int id}) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    await users.doc(id.toString()).delete().then((_) => print('Deleted user'));
   }
 
   @override

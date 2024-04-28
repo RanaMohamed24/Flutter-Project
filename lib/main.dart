@@ -2,6 +2,7 @@
 
 import 'package:device_preview/device_preview.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_project/core/firebase/my-firebase.dart';
 import 'package:flutter_project/core/utilities/my_routes.dart';
 import 'package:flutter_project/features/auth/onboarding/view/page/onboarding.dart';
 import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
@@ -10,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
+  await MyFirebase().init();
   bool onBoarding = sharedPreferences.getBool('onboarding') ?? false;
   MaterialApp materialApp = MaterialApp(
     builder: DevicePreview.appBuilder,
