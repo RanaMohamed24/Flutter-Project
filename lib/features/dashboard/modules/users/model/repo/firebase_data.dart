@@ -27,7 +27,6 @@ class FirebaseRepo extends ParentRepo {
     });
   }
 
-  @override
   Future<void> update({required int id}) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     await users.doc(id.toString()).update({'company': 'Stokes and Sons'}).then(
