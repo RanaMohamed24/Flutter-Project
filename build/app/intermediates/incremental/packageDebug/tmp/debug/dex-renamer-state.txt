@@ -1,4 +1,0 @@
-#Sat Apr 13 13:09:53 EET 2024
-base.0=C\:\\Users\\salma\\StudioProjects\\Flutter_Project\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
