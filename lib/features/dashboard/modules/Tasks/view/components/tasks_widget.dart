@@ -62,6 +62,7 @@ class TasksWidget extends StatelessWidget {
                   ],
                 ),
                 Container(
+                  margin: const EdgeInsets.only(left: 10),
                   child: DatePicker(
                     DateTime.now(),
                     height: 100,
@@ -70,8 +71,10 @@ class TasksWidget extends StatelessWidget {
                     selectionColor: PrimaryColor,
                     selectedTextColor: Colors.white,
                     dateTextStyle: subTitle,
-                    monthTextStyle: const TextStyle(color: SecondaryColor, fontSize: 14),
-                    dayTextStyle:  const TextStyle(color: SecondaryColor, fontSize: 14),
+                    monthTextStyle:
+                        const TextStyle(color: SecondaryColor, fontSize: 14),
+                    dayTextStyle:
+                        const TextStyle(color: SecondaryColor, fontSize: 14),
                     onDateChange: (date) {
                       controller.selectedDate = date;
                     },

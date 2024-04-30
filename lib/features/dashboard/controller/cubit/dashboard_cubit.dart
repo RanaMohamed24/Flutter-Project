@@ -10,8 +10,8 @@ class DashboardCubit extends Cubit<DashboardState> {
   int selectedTapIndex = 0;
   final PageController pageController = PageController();
   void onChangeTapIndex(int index) {
-    if (index == 2) {
-      throw 'dummy execption frpm mobile';
+    if (index == 3) {
+      throw 'dummy execption from mobile';
     }
     selectedTapIndex = index;
     pageController.jumpToPage(selectedTapIndex);
