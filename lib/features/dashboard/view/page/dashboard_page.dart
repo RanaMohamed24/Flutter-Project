@@ -1,14 +1,13 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
-import 'package:flutter_project/features/dashboard/modules/users/view/user_page.dart';
+import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class DashboardPage extends StatelessWidget {
-  final List<String> titles = const ['Home', 'Users', 'home'];
+  final List<String> titles = const ['Tasks', 'Categories', 'Profile'];
 
   const DashboardPage({super.key});
 
@@ -32,21 +31,21 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'registration');
-                    },
-                    icon: Icon(CupertinoIcons.add))
-              ],
+              // actions: [
+              //   IconButton(
+              //       onPressed: () {
+              //         Navigator.pushNamed(context, 'registration');
+              //       },
+              //       icon: const Icon(CupertinoIcons.add))
+              // ],
             ),
             body: PageView(
               controller: controller.pageController,
               onPageChanged: controller.onChangeTapIndex,
               children: const [
-                Text('Home'),
-                UserPage(),
-                Text('Home'),
+                TasksPage(),
+                Text("Categories"),
+                Text("Profile"),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
@@ -59,11 +58,11 @@ class DashboardPage extends StatelessWidget {
               selectedItemColor: FocusedColor,
               items: const [
                 BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.home), label: "Home"),
+                    icon: Icon(Icons.task_alt), label: "Tasks"),
                 BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.home), label: "Users"),
+                    icon: Icon(Icons.search), label: "Categories"),
                 BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.home), label: "Home"),
+                    icon: Icon(Icons.person), label: "Profile"),
               ],
             ),
           );
