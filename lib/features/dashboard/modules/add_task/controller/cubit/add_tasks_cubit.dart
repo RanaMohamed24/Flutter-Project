@@ -1,6 +1,6 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:intl/intl.dart';
 
 part 'add_tasks_state.dart';
@@ -53,15 +53,14 @@ class AddTaskCubit extends Cubit<AddTaskState> {
   }
 
   void getStartTimeFromUser(BuildContext context) async {
-  TimeOfDay? startTime = await showTimePicker(
-    context: context,
-    initialTime: TimeOfDay.now(),
-  );
-  if (startTime != null) {
-    setStartTime(DateTime(1, 1, 1, startTime.hour, startTime.minute));
+    TimeOfDay? startTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (startTime != null) {
+      setStartTime(DateTime(1, 1, 1, startTime.hour, startTime.minute));
+    }
   }
-}
-
 
   void getEndTimeFromUser(BuildContext context) async {
     TimeOfDay? endTime = await showTimePicker(
@@ -70,6 +69,20 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     );
     if (endTime != null) {
       setEndTime(DateTime(0, 1, 1, endTime.hour, endTime.minute));
+    }
+  }
+
+  void onPressedCreateButton(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      // Form is valid, proceed with adding task to database
+      if (titleController.text.isNotEmpty) {
+        // Add task to database
+        // After adding the task, navigate to the TasksPage
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TasksPage()),
+        );
+      }
     }
   }
 }

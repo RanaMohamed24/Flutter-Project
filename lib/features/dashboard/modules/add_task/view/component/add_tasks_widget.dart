@@ -60,6 +60,12 @@ class AddTasksWidget extends StatelessWidget {
                                 hintText: "Enter your title",
                               ),
                               controller: controller.titleController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'required field';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                         ],
@@ -220,7 +226,9 @@ class AddTasksWidget extends StatelessWidget {
                                 style: const ButtonStyle(
                                     backgroundColor:
                                         MaterialStatePropertyAll(PrimaryColor)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.onPressedCreateButton(context);
+                                },
                                 child: Text(
                                   'Create',
                                   style:
