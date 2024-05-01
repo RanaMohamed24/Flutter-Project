@@ -56,15 +56,19 @@ InputDecoration OtpTextFieldDecoration = InputDecoration(
 );
 
 InputDecoration AddTaskFieldDecoration = InputDecoration(
-    hintText: "hint",
-    hintStyle: const TextStyle(color: SecondaryColor),
-    border: OutlineInputBorder(
-        borderSide: const BorderSide(color: SecondaryColor),
-        borderRadius: BorderRadius.circular(12)),
-    focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: PrimaryColor, width: 1.5),
-        borderRadius: BorderRadius.circular(12)),
-    contentPadding: const EdgeInsets.only(left: 14, top: 12, bottom: 12),);
+  hintText: "hint",
+  hintStyle: const TextStyle(color: SecondaryColor),
+  border: OutlineInputBorder(
+      borderSide: const BorderSide(color: SecondaryColor),
+      borderRadius: BorderRadius.circular(12)),
+  focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: PrimaryColor, width: 1.5),
+      borderRadius: BorderRadius.circular(12)),
+  errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: ErrorColor, width: 1.5),
+      borderRadius: BorderRadius.circular(12)),
+  contentPadding: const EdgeInsets.only(left: 14, top: 12, bottom: 12),
+);
 
 extension MyContextExtenction on BuildContext {
   double get width => MediaQuery.of(this).size.width;
