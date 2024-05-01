@@ -49,7 +49,9 @@ class TasksWidget extends StatelessWidget {
                           style: const ButtonStyle(
                               backgroundColor:
                                   MaterialStatePropertyAll(PrimaryColor)),
-                          onPressed: () => controller.onPressedButton(context),
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'addTask');
+                          },
                           child: Center(
                             child: Text(
                               "+ Add Task",

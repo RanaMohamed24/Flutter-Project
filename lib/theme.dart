@@ -27,6 +27,9 @@ TextStyle onboardingTitle = const TextStyle(
 TextStyle onboardingSubTitle = const TextStyle(
     color: SecondaryColor, fontSize: 14, fontWeight: FontWeight.w500);
 
+TextStyle addTaskTitle = const TextStyle(
+    color: PrimaryColor, fontSize: 20, fontWeight: FontWeight.w500);
+
 InputDecoration TextFieldDecoration = InputDecoration(
   hintText: "hint",
   hintStyle: const TextStyle(color: SecondaryColor),
@@ -51,6 +54,17 @@ InputDecoration OtpTextFieldDecoration = InputDecoration(
       borderSide: const BorderSide(color: PrimaryColor, width: 2.5),
       borderRadius: BorderRadius.circular(20)),
 );
+
+InputDecoration AddTaskFieldDecoration = InputDecoration(
+    hintText: "hint",
+    hintStyle: const TextStyle(color: SecondaryColor),
+    border: OutlineInputBorder(
+        borderSide: const BorderSide(color: SecondaryColor),
+        borderRadius: BorderRadius.circular(12)),
+    focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: PrimaryColor, width: 1.5),
+        borderRadius: BorderRadius.circular(12)),
+    contentPadding: const EdgeInsets.only(left: 14, top: 12, bottom: 12));
 
 extension MyContextExtenction on BuildContext {
   double get width => MediaQuery.of(this).size.width;
