@@ -64,7 +64,7 @@ InputDecoration AddTaskFieldDecoration = InputDecoration(
     focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: PrimaryColor, width: 1.5),
         borderRadius: BorderRadius.circular(12)),
-    contentPadding: const EdgeInsets.only(left: 14, top: 12, bottom: 12));
+    contentPadding: const EdgeInsets.only(left: 14, top: 12, bottom: 12),);
 
 extension MyContextExtenction on BuildContext {
   double get width => MediaQuery.of(this).size.width;

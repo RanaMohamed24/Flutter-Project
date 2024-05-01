@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project/features/dashboard/modules/addTask/controller/cubit/add_task_cubit.dart';
-import 'package:flutter_project/features/dashboard/modules/addTask/view/component/add_task_widget.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/view/component/add_tasks_widget.dart';
 
-class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({super.key});
+class AddTasksPage extends StatelessWidget {
+  const AddTasksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class AddTaskPage extends StatelessWidget {
         builder: (context, state) {
           AddTaskCubit controller = context.read<AddTaskCubit>();
           return Scaffold(
-            body: AddTaskWidget(
+            body: AddTasksWidget(
               controller: controller,
             ),
           );

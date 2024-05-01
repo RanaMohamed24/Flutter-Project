@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
@@ -34,13 +33,13 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'registration');
-                    },
-                    icon: const Icon(CupertinoIcons.add))
-              ],
+              // actions: [
+              //   IconButton(
+              //       onPressed: () {
+              //         Navigator.pushNamed(context, 'registration');
+              //       },
+              //       icon: const Icon(CupertinoIcons.add))
+              // ],
             ),
             body: PageView(
               controller: controller.pageController,

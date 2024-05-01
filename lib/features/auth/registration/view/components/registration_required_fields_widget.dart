@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names, unused_import, unused_local_variable, use_build_context_synchronously, avoid_print
 
 import 'dart:developer';
 
@@ -137,7 +137,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller:controller.confirmPasswordController,
+                      controller: controller.confirmPasswordController,
                       keyboardType: TextInputType.visiblePassword,
                       validator: (value) {
                         if (value!.isEmpty) {
