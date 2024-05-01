@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/registration/controller/cubit/registration_cubit.dart';
@@ -136,7 +137,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                     padding: DefaultHorizontalPadding,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: TextEditingController(),
+                      controller:controller.confirmPasswordController,
                       keyboardType: TextInputType.visiblePassword,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -164,10 +165,26 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
                       onPressed: () async {
-                        await (await DatabaseRepo.instance)
-                            .insert(name: 'Ahmed', address: 'Cairo');
-                        log('Added successfully');
-                        // controller.onPressedConfirmButton(context),
+                        // await (await DatabaseRepo.instance)
+                        //     .insert(name: 'Ahmed', address: 'Cairo');
+                        // log('Added successfully');
+                        //  controller.onPressedConfirmButton(context),
+                        try {
+                          final credential = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: controller.emailController.text.trim(),
+                            password: controller.passwordController.text.trim(),
+                          );
+                          Navigator.of(context).pushReplacementNamed('Auth');
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
+                            print('The account already exists for that email.');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                       child: Text(
                         'Confirm',

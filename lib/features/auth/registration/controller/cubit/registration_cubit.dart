@@ -9,6 +9,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController  confirmPasswordController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

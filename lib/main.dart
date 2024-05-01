@@ -4,6 +4,7 @@ import 'package:device_preview/device_preview.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_project/core/firebase/my-firebase.dart';
 import 'package:flutter_project/core/utilities/my_routes.dart';
+import 'package:flutter_project/features/auth/login/controller/auth.dart';
 import 'package:flutter_project/features/auth/onboarding/view/page/onboarding.dart';
 import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +21,7 @@ void main() async {
     onGenerateInitialRoutes: (_) => [
       MaterialPageRoute<dynamic>(
         builder: (BuildContext context) =>
-            onBoarding ? const DashboardPage() : const OnBoardingPage(),
+            onBoarding ?  DashboardPage() : const OnBoardingPage(),
       ),
     ],
   );
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: DashboardPage(),
+      home: Auth(),
     );
   }
 }
