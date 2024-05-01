@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/forgetPassword/view/page/forgot_password.dart';
@@ -125,8 +126,23 @@ class RequiredBodyWidget extends StatelessWidget {
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(PrimaryColor)),
-                        onPressed: () =>
-                            controller.onPressedConfirmButton(context),
+                        onPressed: () async {
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: controller.emailController.text.trim(),
+                              password:
+                                  controller.passwordController.text.trim(),
+                            );
+                            Navigator.of(context).pushReplacementNamed('Home');
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              print('No user found for that email.');
+                            } else if (e.code == 'wrong-password') {
+                              print('Wrong password provided for that user.');
+                            }
+                          }
+                        },
                         child: Text(
                           "Login",
                           style: textButton.copyWith(color: Colors.white),
