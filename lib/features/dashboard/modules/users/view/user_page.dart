@@ -16,7 +16,7 @@ class UserPage extends StatelessWidget {
           final UserCubit controller = context.read<UserCubit>();
           return Scaffold(
             body: state is UserLoading
-                ? const CircularProgressIndicator()
+                ? const Center(child: CircularProgressIndicator())
                 : state is UserEmpty
                     ? const Center(
                         child: Icon(

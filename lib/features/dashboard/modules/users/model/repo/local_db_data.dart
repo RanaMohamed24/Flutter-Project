@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../user_model.dart';
@@ -25,8 +26,8 @@ class DatabaseRepo extends ParentRepo {
     final String databasePath = await getDatabasesPath();
 
     //add your database files
-    final String path = databasePath + "/users.db";
-    // final path = join(databasePath, 'users.db');
+    // final String path = databasePath + "/users.db";
+    final path = join(databasePath, 'users.db');
 
     _database = await openDatabase(
       path,

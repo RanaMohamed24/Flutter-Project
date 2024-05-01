@@ -3,7 +3,7 @@ class UserModel {
   String? name;
   String? address;
 
-  UserModel({this.id, this.address, this.name});
+  UserModel({this.id, this.name, this.address});
 
   UserModel.fromJson(Map map) {
     id = map['id'].toString();
