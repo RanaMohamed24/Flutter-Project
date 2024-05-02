@@ -2,15 +2,18 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:intl/intl.dart';
 
 class AddTasksWidget extends StatelessWidget {
-  const AddTasksWidget({super.key, required AddTaskCubit controller});
+  AddTasksWidget({super.key, required AddTaskCubit controller});
+  CollectionReference Tasks = FirebaseFirestore.instance.collection('Tasks');
 
   @override
   Widget build(BuildContext context) {
@@ -222,12 +225,14 @@ class AddTasksWidget extends StatelessWidget {
                             SizedBox(
                               width: 150.0,
                               height: 50.0,
-                              child: FilledButton(
+                              child:state is AddTaskloading? const CircularProgressIndicator() : FilledButton(
+                                
                                 style: const ButtonStyle(
                                     backgroundColor:
                                         MaterialStatePropertyAll(PrimaryColor)),
                                 onPressed: () {
-                                  controller.onPressedCreateButton(context);
+                                  controller.addTask(context);
+                                  
                                 },
                                 child: Text(
                                   'Create',

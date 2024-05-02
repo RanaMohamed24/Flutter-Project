@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_project/features/dashboard/modules/Tasks/controller/cubit/task_cubit.dart';
 
 class TaskModel {
   String? docId;
@@ -21,8 +19,8 @@ class TaskModel {
     docId = map['docId'].toString();
     title = map[' title'];
     note = map['note'];
-    date = map['date'];
-    startTime = map['startTime'];
-    endTime = map['endTime'];
+    date = map['date'].toString();
+    startTime = map['startTime'].toString();
+    endTime = map['endTime'].toString();
   }
 }

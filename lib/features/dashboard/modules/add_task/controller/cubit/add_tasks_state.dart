@@ -4,3 +4,5 @@ part of 'add_tasks_cubit.dart';
 sealed class AddTaskState {}
 
 final class AddTaskInitial extends AddTaskState {}
+final class AddTaskloading extends AddTaskState {}
+final class AddTaskloaded extends AddTaskState {}

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
+import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
 import 'package:intl/intl.dart';
 
 part 'add_tasks_state.dart';
@@ -31,7 +33,8 @@ class AddTaskCubit extends Cubit<AddTaskState> {
 
   void setStartTime(DateTime time) {
     _selectedStartTime = time;
-    startTimeController.text = DateFormat("hh:mm a").format(_selectedStartTime!);
+    startTimeController.text =
+        DateFormat("hh:mm a").format(_selectedStartTime!);
   }
 
   void setEndTime(DateTime time) {
@@ -84,5 +87,20 @@ class AddTaskCubit extends Cubit<AddTaskState> {
         );
       }
     }
+  }
+
+  void addTask(BuildContext context) async {
+    emit(AddTaskloading());
+    await Firestore.instance.addTask(
+      title: titleController.text,
+      note: noteController.text,
+      date: dateController.text,
+      startTime: startTimeController.text,
+      endTime: endTimeController.text,
+    );
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) =>  DashboardPage()),
+    );
+    emit(AddTaskloaded());
   }
 }
