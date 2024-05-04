@@ -7,7 +7,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/firebase_options.dart';
 
-
 class MyFirebase {
   Future<void> init() async {
     await Firebase.initializeApp(
@@ -27,7 +26,7 @@ class MyFirebase {
   //         minimumFetchInterval: const Duration(seconds: 1),
   //       ),
   //    );
-  //    value = remoteConfig.getString("url");//url for server in firebase 
+  //    value = remoteConfig.getString("url");//url for server in firebase
   //   } catch (e) {
   //     value = "";
   //   }
@@ -36,9 +35,8 @@ class MyFirebase {
 
   //  Future<void> initDynamicLinkes() async {
   //   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-  //   dynamicLinks.onLink.listen((dynamicLinkData) { 
+  //   dynamicLinks.onLink.listen((dynamicLinkData) {
   //      final String deepLink=dynamicLinkData.link.toString();
-
 
   //   }).onError(handleError)
   // }

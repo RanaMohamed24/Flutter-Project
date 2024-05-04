@@ -1,12 +1,18 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/task_db.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
 import 'package:intl/intl.dart';
 
 part 'add_tasks_state.dart';
 
 class AddTaskCubit extends Cubit<AddTaskState> {
-  AddTaskCubit() : super(AddTaskInitial());
+  AddTaskCubit() : super(AddTaskLoading()) {
+    init();
+  }
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
@@ -31,7 +37,8 @@ class AddTaskCubit extends Cubit<AddTaskState> {
 
   void setStartTime(DateTime time) {
     _selectedStartTime = time;
-    startTimeController.text = DateFormat("hh:mm a").format(_selectedStartTime!);
+    startTimeController.text =
+        DateFormat("hh:mm a").format(_selectedStartTime!);
   }
 
   void setEndTime(DateTime time) {
@@ -76,13 +83,33 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     if (formKey.currentState!.validate()) {
       // Form is valid, proceed with adding task to database
       if (titleController.text.isNotEmpty) {
-        // Add task to database
+        repo.addTask(
+            titleController.text,
+            noteController.text,
+            dateController.text,
+            startTimeController.text,
+            endTimeController.text);
+        log("Added");
         // After adding the task, navigate to the TasksPage
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const TasksPage()),
         );
       }
+    }
+  }
+
+  List<TaskModel> tasks = [];
+  TaskDatabaseRepo repo = TaskDatabaseRepo();
+  Future<void> init() async {
+    emit(AddTaskLoading());
+    await repo.initTaskDb();
+    tasks = await repo.fetch();
+
+    if (tasks.isEmpty) {
+      emit(AddTaskEmpty());
+    } else {
+      emit(AddTaskLoaded());
     }
   }
 }

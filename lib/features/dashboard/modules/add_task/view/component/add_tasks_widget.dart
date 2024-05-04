@@ -61,9 +61,7 @@ class AddTasksWidget extends StatelessWidget {
                               ),
                               controller: controller.titleController,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'required field';
-                                }
+                                if (value == null || value.isEmpty) return "";
                                 return null;
                               },
                             ),

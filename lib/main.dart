@@ -21,7 +21,7 @@ void main() async {
     onGenerateInitialRoutes: (_) => [
       MaterialPageRoute<dynamic>(
         builder: (BuildContext context) =>
-            onBoarding ?  DashboardPage() : const OnBoardingPage(),
+            onBoarding ? DashboardPage() : const OnBoardingPage(),
       ),
     ],
   );

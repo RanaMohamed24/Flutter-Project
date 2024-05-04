@@ -81,7 +81,7 @@ class TasksWidget extends StatelessWidget {
                       controller.selectedDate = date;
                     },
                   ),
-                )
+                ),
               ],
             ),
           );
