@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/task_db.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
+import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
 import 'package:intl/intl.dart';
 
 part 'add_tasks_state.dart';
@@ -110,6 +112,21 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       emit(AddTaskEmpty());
     } else {
       emit(AddTaskLoaded());
+    }
+    void addTask(BuildContext context) async {
+      emit(AddTaskloading());
+      await Firestore.instance.addTask(
+        title: titleController.text,
+        note: noteController.text,
+        date: dateController.text,
+        startTime: startTimeController.text,
+        endTime: endTimeController.text,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardPage()),
+      );
+      emit(AddTaskloaded());
     }
   }
 }

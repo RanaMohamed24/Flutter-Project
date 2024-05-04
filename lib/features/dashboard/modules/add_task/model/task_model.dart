@@ -20,8 +20,8 @@ class TaskModel {
     docId = map['docId'].toString();
     title = map[' title'];
     note = map['note'];
-    date = map['date'];
-    startTime = map['startTime'];
-    endTime = map['endTime'];
+    date = map['date'].toString();
+    startTime = map['startTime'].toString();
+    endTime = map['endTime'].toString();
   }
 }
