@@ -9,13 +9,12 @@ import 'package:intl/intl.dart';
 
 class TasksWidget extends StatelessWidget {
   final TaskCubit controller;
-
   const TasksWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => controller,
+    return BlocProvider.value(
+      value: controller,
       child: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
           return SingleChildScrollView(
@@ -65,22 +64,18 @@ class TasksWidget extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 10),
-                  child: DatePicker(
-                    DateTime.now(),
-                    height: 100,
-                    width: 80,
-                    initialSelectedDate: DateTime.now(),
-                    selectionColor: PrimaryColor,
-                    selectedTextColor: Colors.white,
-                    dateTextStyle: subTitle,
-                    monthTextStyle:
-                        const TextStyle(color: SecondaryColor, fontSize: 14),
-                    dayTextStyle:
-                        const TextStyle(color: SecondaryColor, fontSize: 14),
-                    onDateChange: (date) {
-                      controller.selectedDate = date;
-                    },
-                  ),
+                  child: DatePicker(DateTime.now(),
+                      height: 100,
+                      width: 80,
+                      initialSelectedDate: DateTime.now(),
+                      selectionColor: PrimaryColor,
+                      selectedTextColor: Colors.white,
+                      dateTextStyle: subTitle,
+                      monthTextStyle:
+                          const TextStyle(color: SecondaryColor, fontSize: 14),
+                      dayTextStyle:
+                          const TextStyle(color: SecondaryColor, fontSize: 14),
+                      onDateChange: controller.onChangeDate),
                 ),
               ],
             ),

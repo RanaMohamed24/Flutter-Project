@@ -1,27 +1,29 @@
 class TaskModel {
-  late String docId;
+  String? docId;
   String? title;
   String? note;
-  String? isCompleted;
   String? date;
   String? startTime;
   String? endTime;
+  // int? isCompleted;
 
-  TaskModel(
-      {required this.docId,
-      this.title,
-      this.note,
-      this.isCompleted,
-      this.date,
-      this.startTime,
-      this.endTime});
+  TaskModel({
+    this.docId,
+    this.title,
+    this.note,
+    this.date,
+    this.startTime,
+    this.endTime,
+  });
 
   TaskModel.fromJson(Map map) {
+    // print(map.toString());
     docId = map['docId'].toString();
-    title = map[' title'];
+    title = map['title'];
     note = map['note'];
-    date = map['date'].toString();
-    startTime = map['startTime'].toString();
-    endTime = map['endTime'].toString();
+    date = map['date'];
+    startTime = map['startTime'];
+    endTime = map['endTime'];
+    // isCompleted = map['endTime'];
   }
 }

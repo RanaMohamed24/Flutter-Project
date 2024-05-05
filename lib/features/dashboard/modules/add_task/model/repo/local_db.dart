@@ -1,9 +1,8 @@
-import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/ParentRepo.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TaskDatabaseRepo extends ParentRepo {
+class LocalDb {
   static late Database taskDb;
 
   Future<void> initTaskDb() async {
@@ -24,14 +23,12 @@ class TaskDatabaseRepo extends ParentRepo {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title STRING NOT NULL,
       note TEXT,
-      date STRING,
+      date STRING NOT NULL,
       startTime STRING,
-      endTime STRING,
-      isCompleted INTEGER
+      endTime STRING
     )""");
   }
 
-  @override
   Future<void> addTask(String title, String note, String date, String startTime,
       String endTime) async {
     await taskDb.insert('tasks', {
@@ -40,45 +37,56 @@ class TaskDatabaseRepo extends ParentRepo {
       'date': date,
       'startTime': startTime,
       'endTime': endTime,
-      'isCompleted': 0,
+      // 'isCompleted': 0,
     });
     taskDb.close();
   }
 
-  @override
-  Future<void> delete({required int docId}) async {
-    await taskDb.delete(
+  Future<List<TaskModel>> fetch(String date) async {
+    final List<Map<String, dynamic>> tasks = await taskDb.query(
       'tasks',
-      where: 'id=?',
-      whereArgs: [docId],
+      where: 'date = ?',
+      whereArgs: [date],
     );
+    return tasks.map((e) => TaskModel.fromJson(e)).toList();
   }
 
-  @override
-  Future<List<TaskModel>> fetch() async {
-    return (await taskDb.query('tasks'))
-        .map((e) => TaskModel.fromJson(e))
-        .toList();
-  }
+  // Future<List<TaskModel>> fetchCompleted() async {
+  //   return (await taskDb.query('tasks', where: 'isCompleted=?', whereArgs: [1]))
+  //       .map((e) => TaskModel.fromJson(e))
+  //       .toList();
+  // }
 
-  @override
-  Future<List<TaskModel>> fetchCompleted() async {
-    return (await taskDb.query('tasks', where: 'isCompleted=?', whereArgs: [1]))
-        .map((e) => TaskModel.fromJson(e))
-        .toList();
-  }
-
-  @override
-  Future<void> editTask(
-      String date, String startTime, String endTime, int docId) async {
+  Future<void> editTaskInfo(String title, String note, String date,
+      String startTime, String endTime, int docId) async {
     await taskDb.update(
         'tasks',
         {
+          'title': title,
+          'note': note,
           'date': date,
           'startTime': startTime,
           'endTime': endTime,
         },
         where: 'id=?',
         whereArgs: [docId]);
+  }
+
+  // Future<void> editTaskState(int value, int docId) async {
+  //   await taskDb.update(
+  //       'tasks',
+  //       {
+  //         'isCompleted': value,
+  //       },
+  //       where: 'id=?',
+  //       whereArgs: [docId]);
+  // }
+
+  Future<void> delete({required String docId}) async {
+    await taskDb.delete(
+      'tasks',
+      where: 'id = ?',
+      whereArgs: [docId],
+    );
   }
 }

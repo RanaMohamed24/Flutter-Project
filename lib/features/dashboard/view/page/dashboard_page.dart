@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
-import 'package:flutter_project/features/dashboard/modules/users/view/user_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class DashboardPage extends StatelessWidget {
   final List<String> titles = const ['Tasks', 'Categories', 'Profile'];
- final user = FirebaseAuth.instance.currentUser;
-   DashboardPage({super.key});
+  final user = FirebaseAuth.instance.currentUser;
+  DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +32,6 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // actions: [
-              //   IconButton(
-              //       onPressed: () {
-              //         Navigator.pushNamed(context, 'registration');
-              //       },
-              //       icon: const Icon(CupertinoIcons.add))
-              // ],
             ),
             body: PageView(
               controller: controller.pageController,
@@ -47,22 +39,24 @@ class DashboardPage extends StatelessWidget {
               children: const [
                 TasksPage(),
                 Text("Categories"),
-                UserPage(),
+                Text("Profile"),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: controller.selectedTapIndex,
               onTap: controller.onChangeTapIndex,
-              unselectedItemColor: PrimaryColor,
+              selectedItemColor: PrimaryColor,
+              unselectedItemColor: SecondaryColor,
               showUnselectedLabels: true,
               unselectedLabelStyle:
+                  const TextStyle(fontSize: 15, color: SecondaryColor),
+              selectedLabelStyle:
                   const TextStyle(fontSize: 15, color: PrimaryColor),
-              selectedItemColor: FocusedColor,
               items: const [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.task_alt), label: "Tasks"),
+                    icon: Icon(Icons.task_alt_rounded), label: "Tasks"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.search), label: "Categories"),
+                    icon: Icon(Icons.category_rounded), label: "Categories"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person), label: "Profile"),
               ],

@@ -53,7 +53,7 @@ class AddTasksWidget extends StatelessWidget {
                             style: addTaskTitle,
                           ),
                           SizedBox(
-                            height: 45,
+                            height: 70,
                             child: TextFormField(
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
@@ -64,7 +64,9 @@ class AddTasksWidget extends StatelessWidget {
                               ),
                               controller: controller.titleController,
                               validator: (value) {
-                                if (value == null || value.isEmpty) return "";
+                                if (value == null || value.isEmpty) {
+                                  return 'required field';
+                                }
                                 return null;
                               },
                             ),
@@ -81,7 +83,7 @@ class AddTasksWidget extends StatelessWidget {
                               style: addTaskTitle,
                             ),
                             SizedBox(
-                              height: 45,
+                              height: 70,
                               child: TextFormField(
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -106,7 +108,7 @@ class AddTasksWidget extends StatelessWidget {
                               style: addTaskTitle,
                             ),
                             SizedBox(
-                              height: 45,
+                              height: 70,
                               child: TextFormField(
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -127,6 +129,12 @@ class AddTasksWidget extends StatelessWidget {
                                   ),
                                 ),
                                 controller: controller.dateController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'required field';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                           ],
@@ -145,7 +153,7 @@ class AddTasksWidget extends StatelessWidget {
                                     style: addTaskTitle,
                                   ),
                                   SizedBox(
-                                    height: 45,
+                                    height: 70,
                                     child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -184,7 +192,7 @@ class AddTasksWidget extends StatelessWidget {
                                     style: addTaskTitle,
                                   ),
                                   SizedBox(
-                                    height: 45,
+                                    height: 70,
                                     child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
@@ -215,32 +223,28 @@ class AddTasksWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(120),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 150.0,
-                              height: 50.0,
-                              child:state is AddTaskloading? const CircularProgressIndicator() : FilledButton(
-                                
-                                style: const ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStatePropertyAll(PrimaryColor)),
-                                onPressed: () {
-                                  controller.addTask(context);
-                                  
-                                },
-                                child: Text(
-                                  'Create',
-                                  style:
-                                      textButton.copyWith(color: Colors.white),
+                      Center(
+                        child: SizedBox(
+                          width: 150.0,
+                          height: 50.0,
+                          child: state is AddTaskloading
+                              ? const Center(child: CircularProgressIndicator())
+                              : FilledButton(
+                                  style: const ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          PrimaryColor)),
+                                  onPressed: () {
+                                    controller.addTask(context);
+                                  },
+                                  child: Text(
+                                    'Create',
+                                    style: textButton.copyWith(
+                                        color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
                         ),
+
+                        // ),
                       ),
                     ],
                   ),

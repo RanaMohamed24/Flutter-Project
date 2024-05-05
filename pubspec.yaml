@@ -54,6 +54,7 @@ dependencies:
   date_picker_timeline: ^1.2.5
   firebase_auth: ^4.19.4
   flutter_slidable: ^3.1.0
+  connectivity_plus: ^6.0.3
   
 
 dev_dependencies:
