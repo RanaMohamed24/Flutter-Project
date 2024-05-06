@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unnecessary_import, unused_local_variable
+// ignore_for_file: unused_import, unnecessary_import, unused_local_variable, must_be_immutable
 
 import 'dart:developer';
 

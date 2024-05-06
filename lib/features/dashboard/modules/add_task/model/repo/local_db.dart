@@ -83,10 +83,11 @@ class LocalDb {
   // }
 
   Future<void> delete({required String docId}) async {
-    await taskDb.delete(
-      'tasks',
-      where: 'id = ?',
-      whereArgs: [docId],
-    );
-  }
+  await taskDb.delete(
+    'tasks',
+    where: 'id = ?',
+    whereArgs: [docId], // Pass docId as String
+  );
+}
+
 }
