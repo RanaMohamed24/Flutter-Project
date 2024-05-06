@@ -8,7 +8,7 @@ class LocalDb {
   Future<void> initTaskDb() async {
     final String taskDatabasePath = await getDatabasesPath();
 
-    final path = join(taskDatabasePath, 'tasks.db');
+    final path = join(taskDatabasePath, 'task.db');
 
     taskDb = await openDatabase(
       path,
@@ -19,8 +19,8 @@ class LocalDb {
 
   static Future<void> _createTables(Database taskdb, _) async {
     await taskdb.execute("""
-    CREATE TABLE tasks (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE task (
+      docId INTEGER PRIMARY KEY AUTOINCREMENT,
       title STRING NOT NULL,
       note TEXT,
       date STRING NOT NULL,
@@ -31,7 +31,7 @@ class LocalDb {
 
   Future<void> addTask(String title, String note, String date, String startTime,
       String endTime) async {
-    await taskDb.insert('tasks', {
+    await taskDb.insert('task', {
       'title': title,
       'note': note,
       'date': date,
@@ -44,7 +44,7 @@ class LocalDb {
 
   Future<List<TaskModel>> fetch(String date) async {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
-      'tasks',
+      'task',
       where: 'date = ?',
       whereArgs: [date],
     );
@@ -60,7 +60,7 @@ class LocalDb {
   Future<void> editTaskInfo(String title, String note, String date,
       String startTime, String endTime, int docId) async {
     await taskDb.update(
-        'tasks',
+        'task',
         {
           'title': title,
           'note': note,
@@ -68,13 +68,13 @@ class LocalDb {
           'startTime': startTime,
           'endTime': endTime,
         },
-        where: 'id=?',
+        where: 'docId=?',
         whereArgs: [docId]);
   }
 
   // Future<void> editTaskState(int value, int docId) async {
   //   await taskDb.update(
-  //       'tasks',
+  //       'task',
   //       {
   //         'isCompleted': value,
   //       },
@@ -83,11 +83,10 @@ class LocalDb {
   // }
 
   Future<void> delete({required String docId}) async {
-  await taskDb.delete(
-    'tasks',
-    where: 'id = ?',
-    whereArgs: [docId], // Pass docId as String
-  );
-}
-
+    await taskDb.delete(
+      'task',
+      where: 'docId=?',
+      whereArgs: [docId],
+    );
+  }
 }
