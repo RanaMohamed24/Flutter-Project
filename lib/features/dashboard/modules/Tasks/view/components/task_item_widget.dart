@@ -16,8 +16,11 @@ class TaskItemWidget extends StatelessWidget {
         create: (context) => TaskCubit(),
         child: BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
           final TaskCubit controller = context.read<TaskCubit>();
-          return Card(
-            color: PrimaryColor,
+          return Card.outlined(
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: PrimaryColor),
+            ),
             child: Row(
               children: [
                 Column(
@@ -25,13 +28,13 @@ class TaskItemWidget extends StatelessWidget {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 8.0, right: 8, top: 5),
+                          const EdgeInsets.only(left: 10.0, right: 8, top: 7),
                       child: Text(
                         taskModel.title ?? 'xxx',
                         style: const TextStyle(
-                            color: Colors.white,
+                            color: PrimaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 20),
                       ),
                     ),
                     Padding(
@@ -41,7 +44,7 @@ class TaskItemWidget extends StatelessWidget {
                       child: Text(
                         taskModel.note ?? 'xxx',
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: SecondaryColor,
                           fontSize: 16,
                         ),
                       ),
@@ -51,12 +54,12 @@ class TaskItemWidget extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        left: 10,
+                        left: 20,
                       ),
                       child: Text(
                         taskModel.date ?? 'xxx',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
+                        style: const TextStyle(
+                            color: SecondaryColor, fontSize: 16),
                       ),
                     ),
                     SizedBox(
@@ -65,11 +68,11 @@ class TaskItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 10, bottom: 3),
+                          padding: const EdgeInsets.only(left: 20, bottom: 3),
                           child: Text(
                             taskModel.startTime ?? 'xxx',
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                                color: SecondaryColor, fontSize: 16),
                           ),
                         ),
                         SizedBox(
@@ -80,7 +83,7 @@ class TaskItemWidget extends StatelessWidget {
                           child: Text(
                             "-",
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                                color: SecondaryColor, fontSize: 16),
                           ),
                         ),
                         SizedBox(
@@ -91,7 +94,7 @@ class TaskItemWidget extends StatelessWidget {
                           child: Text(
                             taskModel.endTime ?? 'xxx',
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                                color: SecondaryColor, fontSize: 16),
                           ),
                         ),
                       ],
@@ -99,19 +102,26 @@ class TaskItemWidget extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    color: Colors.white,
-                    icon: const Icon(CupertinoIcons.delete),
-                    onPressed: () {
-                      controller.delete(context, taskModel.docId ?? " ");
-                    },
-                  ),
+                // Container(
+                // decoration: BoxDecoration(
+                //   color: Colors.red,
+                //   shape: BoxShape.circle,
+                // ),
+                IconButton(
+                  color: PrimaryColor,
+                  icon: const Icon(Icons.edit_note_outlined),
+                  onPressed: () {
+                    // edit task
+                  },
                 ),
+                IconButton(
+                  color: PrimaryColor,
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    controller.delete(context, taskModel.docId ?? " ");
+                  },
+                ),
+                // ),
                 SizedBox(
                   width: 10,
                 ),
