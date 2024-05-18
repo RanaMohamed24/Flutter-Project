@@ -6,13 +6,15 @@ class MyTheme {
   static final MyTheme instance = MyTheme();
 
   ThemeData light = ThemeData.light(useMaterial3: true);
-  ThemeData dark = ThemeData.dark(useMaterial3: true);
+  ThemeData dark = ThemeData.dark(useMaterial3: true).copyWith(
+    scaffoldBackgroundColor: Color(0xFF393840),
+  );
 }
 
-const PrimaryColor = Color.fromARGB(255, 2, 82, 179);
-const SecondaryColor = Color.fromARGB(255, 55, 122, 230);
+const PrimaryColor = Color.fromARGB(255, 75, 116, 187);
+const SecondaryColor = Color.fromARGB(255, 100, 140, 206);
 const TextFieldColor = Color(0xffffffff);
-const FocusedColor = Color.fromARGB(255, 10, 32, 99);
+const FocusedColor = Color.fromARGB(255, 72, 108, 165);
 const ErrorColor = Color(0xFFFF1E1E);
 
 const DefaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 30);
