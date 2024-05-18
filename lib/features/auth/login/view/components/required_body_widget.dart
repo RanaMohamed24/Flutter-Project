@@ -128,22 +128,8 @@ class RequiredBodyWidget extends StatelessWidget {
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(PrimaryColor)),
-                        onPressed: () async {
-                          try {
-                            final credential = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: controller.emailController.text.trim(),
-                              password:
-                                  controller.passwordController.text.trim(),
-                            );
-                            Navigator.of(context).pushReplacementNamed('Home');
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'user-not-found') {
-                              print('No user found for that email.');
-                            } else if (e.code == 'wrong-password') {
-                              print('Wrong password provided for that user.');
-                            }
-                          }
+                        onPressed: () {
+                          controller.LogIn(context);
                         },
                         child: Text(
                           "Login",

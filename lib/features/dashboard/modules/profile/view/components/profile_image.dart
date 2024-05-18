@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/core/utilities/pick_image.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImage extends StatelessWidget {
@@ -47,9 +48,10 @@ class ProfileImage extends StatelessWidget {
   }
 
   Future<void> _selectImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      final imageBytes = await pickedFile.readAsBytes();
+    Uint8List pickedFile = await pickImage(ImageSource.gallery);
+     String resp = await saveImage(file: pickedFile);
+    if (resp=="success") {
+      final imageBytes = await pickedFile;
       onImageSelected(imageBytes);
     }
   }
