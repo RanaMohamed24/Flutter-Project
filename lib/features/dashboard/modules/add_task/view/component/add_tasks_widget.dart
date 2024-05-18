@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_state.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/category_model.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:intl/intl.dart';
@@ -223,6 +225,43 @@ class AddTasksWidget extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Category",
+                              style: addTaskTitle,
+                            ),
+                            SizedBox(
+                              height: 70,
+                              child: DropdownButtonFormField<CategoryModel>(
+                                value: controller.selectedCategory,
+                                items: controller.categories
+                                    .map((category) => DropdownMenuItem(
+                                          value: category,
+                                          child: Text(category.name),
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  controller.setCategory(value!);
+                                },
+                                decoration: AddTaskFieldDecoration.copyWith(
+                                  hintText: controller.selectedCategory?.name ??
+                                      "Select a category",
+                                ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Please select a category';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Center(
                         child: SizedBox(
                           width: 150.0,
@@ -244,7 +283,6 @@ class AddTasksWidget extends StatelessWidget {
                                 ),
                         ),
 
-                        // ),
                       ),
                     ],
                   ),

@@ -3,31 +3,38 @@
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_state.dart';
+import 'package:flutter_project/features/dashboard/modules/add_task/model/category_model.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/local_db.dart';
 import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
 import 'package:intl/intl.dart';
 
-part 'add_tasks_state.dart';
-
 class AddTaskCubit extends Cubit<AddTaskState> {
-  AddTaskCubit() : super(AddTaskloaded());
+  AddTaskCubit() : super(AddTaskInitial()) {
+    fetchCategories();
+  }
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController startTimeController = TextEditingController();
   final TextEditingController endTimeController = TextEditingController();
+  final TextEditingController categoryController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   DateTime? get selectedDate => _selectedDate;
   DateTime? get selectedStartTime => _selectedStartTime;
   DateTime? get selectedEndTime => _selectedEndTime;
+  CategoryModel? get selectedCategory => _selectedCategory;
 
   DateTime? _selectedDate;
   DateTime? _selectedStartTime;
   DateTime? _selectedEndTime;
+  CategoryModel? _selectedCategory;
+
+  List<CategoryModel> categories = [];
 
   void setDate(DateTime date) {
     _selectedDate = date;
@@ -45,6 +52,11 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     endTimeController.text = DateFormat("hh:mm a").format(_selectedEndTime!);
   }
 
+  void setCategory(CategoryModel category) {
+    _selectedCategory = category;
+    categoryController.text = category.name;
+  }
+
   void getDateFromUser(BuildContext context) async {
     DateTime? date = await showDatePicker(
       context: context,
@@ -54,7 +66,6 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     );
     if (date != null) {
       setDate(date);
-      // log(date.toString());
     }
   }
 
@@ -78,38 +89,62 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     }
   }
 
-  void addTask(BuildContext context) async {
+  Future<void> fetchCategories() async {
+    try {
+      emit(AddTaskloading());
+      final List<ConnectivityResult> connectivityResult =
+          await (Connectivity().checkConnectivity());
+      if (connectivityResult.contains(ConnectivityResult.mobile) ||
+          connectivityResult.contains(ConnectivityResult.wifi)) {
+        categories = await Firestore.instance.fetchCategories();
+      } else {
+        categories = await LocalDb().fetchCategories();
+      }
+      emit(CategoriesLoaded());
+    } catch (e) {
+      emit(AddTaskError(e.toString()));
+    }
+  }
+
+  Future<void> addTask(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      // Form is valid, proceed with adding task to database
-      if (titleController.text.isNotEmpty && dateController.text.isNotEmpty) {
-        emit(AddTaskloading());
-        final List<ConnectivityResult> connectivityResult =
-            await (Connectivity().checkConnectivity());
-        if (connectivityResult.contains(ConnectivityResult.mobile) ||
-            connectivityResult.contains(ConnectivityResult.wifi)) {
+      emit(AddTaskloading());
+      final List<ConnectivityResult> connectivityResult =
+          await (Connectivity().checkConnectivity());
+      if (connectivityResult.contains(ConnectivityResult.mobile) ||
+          connectivityResult.contains(ConnectivityResult.wifi)) {
+        try {
           await Firestore.instance.addTask(
             title: titleController.text,
             note: noteController.text,
             date: dateController.text,
             startTime: startTimeController.text,
             endTime: endTimeController.text,
+            categoryId: selectedCategory?.docId ?? '',
           );
-        } else {
-          // local database
-          await LocalDb().addTask(
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DashboardPage()),
+          );
+          emit(AddTaskloaded());
+        } catch (e) {
+          emit(AddTaskError(e.toString()));
+        }
+      } else {
+        await LocalDb().addTask(
           titleController.text,
           noteController.text,
           dateController.text,
           startTimeController.text,
           endTimeController.text,
+          selectedCategory?.docId ?? '',
         );
-        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardPage()),
+        );
+        emit(AddTaskloaded());
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DashboardPage()),
-      );
-      emit(AddTaskloaded());
     }
   }
 }

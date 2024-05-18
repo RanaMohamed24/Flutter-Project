@@ -29,6 +29,7 @@ class TaskCubit extends Cubit<TaskState> {
 
   List<TaskModel> tasks = [];
   Future<void> init() async {
+    if (isClosed) return;
     emit(TaskLoading());
     tasks = [];
     final List<ConnectivityResult> connectivityResult =
@@ -48,13 +49,14 @@ class TaskCubit extends Cubit<TaskState> {
           await repo.fetch(DateFormat.yMMMMd().format(selectedDate).toString());
     }
     if (tasks.isEmpty) {
-      emit(TaskEmpty());
+      if (!isClosed) emit(TaskEmpty());
     } else {
-      emit(TaskLoaded());
+      if (!isClosed) emit(TaskLoaded());
     }
   }
 
   Future<void> delete(BuildContext context, String docId) async {
+    if (isClosed) return;
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
@@ -64,9 +66,11 @@ class TaskCubit extends Cubit<TaskState> {
       // local database
       await LocalDb().delete(docId: docId);
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DashboardPage()),
-    );
+    if (!isClosed) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardPage()),
+      );
+    }
   }
 }

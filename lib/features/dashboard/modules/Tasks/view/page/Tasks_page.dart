@@ -25,7 +25,7 @@ class TasksPage extends StatelessWidget {
                     controller: controller,
                   ),
                   Expanded(
-                    child: TasksStateWidget(
+                    child: TasksListWidget(
                       controller: controller,
                     )),
                 ],

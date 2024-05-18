@@ -1,24 +1,24 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project/features/dashboard/modules/Tasks/controller/cubit/task_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
+import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
+import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
 import 'package:flutter_project/theme.dart';
 
-class TaskItemWidget extends StatelessWidget {
-  const TaskItemWidget({super.key, required this.taskModel});
+class CategoryTaskItemWidget extends StatelessWidget {
+  const CategoryTaskItemWidget({super.key, required this.taskModel});
   final TaskModel taskModel;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => TaskCubit(),
-        child: BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
-          final TaskCubit controller = context.read<TaskCubit>();
+        create: (context) => CategoriesTasksCubit(),
+        child: BlocBuilder<CategoriesTasksCubit, CategoriesTasksState>(
+            builder: (context, state) {
+          final CategoriesTasksCubit controller = context.read<CategoriesTasksCubit>();
           return Card.outlined(
             shape: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 2, color: PrimaryColor),
+              borderSide: const BorderSide(width: 2, color: PrimaryColor),
             ),
             child: Row(
               children: [
@@ -48,7 +48,7 @@ class TaskItemWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Padding(
@@ -61,7 +61,7 @@ class TaskItemWidget extends StatelessWidget {
                             color: SecondaryColor, fontSize: 16),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Row(
@@ -74,18 +74,18 @@ class TaskItemWidget extends StatelessWidget {
                                 color: SecondaryColor, fontSize: 16),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, bottom: 3),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10, bottom: 3),
                           child: Text(
                             "-",
-                            style: const TextStyle(
-                                color: SecondaryColor, fontSize: 16),
+                            style:
+                                TextStyle(color: SecondaryColor, fontSize: 16),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Padding(
@@ -100,7 +100,7 @@ class TaskItemWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                   color: PrimaryColor,
                   icon: const Icon(Icons.edit_note_outlined),
@@ -114,6 +114,10 @@ class TaskItemWidget extends StatelessWidget {
                   onPressed: () {
                     controller.delete(context, taskModel.docId ?? " ");
                   },
+                ),
+                // ),
+                const SizedBox(
+                  width: 10,
                 ),
               ],
             ),

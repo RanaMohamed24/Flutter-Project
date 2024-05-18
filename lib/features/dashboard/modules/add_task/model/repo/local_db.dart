@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter_project/features/dashboard/modules/add_task/model/category_model.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,7 +11,7 @@ class LocalDb {
   Future<void> initTaskDb() async {
     final String taskDatabasePath = await getDatabasesPath();
 
-    final path = join(taskDatabasePath, 'task.db');
+    final path = join(taskDatabasePath, 'todolist.db');
 
     taskDb = await openDatabase(
       path,
@@ -21,44 +24,100 @@ class LocalDb {
     await taskdb.execute("""
     CREATE TABLE task (
       docId INTEGER PRIMARY KEY AUTOINCREMENT,
-      title STRING NOT NULL,
+      title TEXT NOT NULL,
       note TEXT,
-      date STRING NOT NULL,
-      startTime STRING,
-      endTime STRING
+      date TEXT NOT NULL,
+      startTime TEXT,
+      endTime TEXT,
+      categoryId INTEGER,
+      FOREIGN KEY (categoryId) REFERENCES category(docId)
+    )""");
+
+    await taskdb.execute("""
+    CREATE TABLE category (
+      docId INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL
     )""");
   }
 
   Future<void> addTask(String title, String note, String date, String startTime,
-      String endTime) async {
+      String endTime, String categoryId) async {
     await taskDb.insert('task', {
       'title': title,
       'note': note,
       'date': date,
       'startTime': startTime,
       'endTime': endTime,
-      // 'isCompleted': 0,
+      'categoryId': categoryId,
     });
     taskDb.close();
   }
 
+  Future<void> addCategory(String name) async {
+    await taskDb.insert('category', {
+      'name': name,
+    });
+    taskDb.close();
+  }
+
+  Future<List<CategoryModel>> fetchCategories() async {
+  try {
+    final List<Map<String, dynamic>> categories = await taskDb.query('category');
+    return categories.map((e) => CategoryModel(
+          docId: e['docId'].toString(),
+          name: e['name'] as String,
+        )).toList();
+  } catch (error) {
+    print("Error fetching categories: $error");
+    rethrow;
+  }
+}
+
+  Future<List<TaskModel>> fetchTasksForCategory(String categoryId) async {
+  try {
+    final List<Map<String, dynamic>> tasks = await taskDb.query(
+      'task',
+      where: 'categoryId = ?',
+      whereArgs: [categoryId],
+    );
+    return tasks.map((e) => TaskModel(
+          docId: e['docId']?.toString(),
+          title: e['title'] as String,
+          note: e['note'] as String?,
+          date: e['date'] as String,
+          startTime: e['startTime'] as String?,
+          endTime: e['endTime'] as String?,
+          categoryId: e['categoryId']?.toString(),
+        )).toList();
+  } catch (error) {
+    print("Error fetching tasks for category: $error");
+    rethrow;
+  }
+}
+
   Future<List<TaskModel>> fetch(String date) async {
+  try {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
       'task',
       where: 'date = ?',
       whereArgs: [date],
     );
-    return tasks.map((e) => TaskModel.fromJson(e)).toList();
+    return tasks.map((e) => TaskModel(
+          docId: e['docId']?.toString(),
+          title: e['title'] as String,
+          note: e['note'] as String?,
+          date: e['date'] as String,
+          startTime: e['startTime'] as String?,
+          endTime: e['endTime'] as String?,
+          categoryId: e['categoryId']?.toString(),
+        )).toList();
+  } catch (error) {
+    print("Error fetching tasks: $error");
+    rethrow;
   }
-
-  // Future<List<TaskModel>> fetchCompleted() async {
-  //   return (await taskDb.query('tasks', where: 'isCompleted=?', whereArgs: [1]))
-  //       .map((e) => TaskModel.fromJson(e))
-  //       .toList();
-  // }
-
+}
   Future<void> editTaskInfo(String title, String note, String date,
-      String startTime, String endTime, int docId) async {
+      String startTime, String endTime, String categoryId, String docId) async {
     await taskDb.update(
         'task',
         {
@@ -67,20 +126,11 @@ class LocalDb {
           'date': date,
           'startTime': startTime,
           'endTime': endTime,
+          'categoryId': categoryId,
         },
         where: 'docId=?',
         whereArgs: [docId]);
   }
-
-  // Future<void> editTaskState(int value, int docId) async {
-  //   await taskDb.update(
-  //       'task',
-  //       {
-  //         'isCompleted': value,
-  //       },
-  //       where: 'id=?',
-  //       whereArgs: [docId]);
-  // }
 
   Future<void> delete({required String docId}) async {
     await taskDb.delete(

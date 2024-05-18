@@ -1,10 +1,15 @@
-part of 'add_tasks_cubit.dart';
+abstract class AddTaskState {}
 
-@immutable
-sealed class AddTaskState {}
+class AddTaskInitial extends AddTaskState {}
 
-final class AddTaskInitial extends AddTaskState {}
-final class AddTaskloading extends AddTaskState {}
-final class AddTaskloaded extends AddTaskState {}
-final class TasksEmpty extends AddTaskState {}
+class AddTaskloading extends AddTaskState {}
 
+class AddTaskloaded extends AddTaskState {}
+
+class CategoriesLoaded extends AddTaskState {}
+
+class AddTaskError extends AddTaskState {
+  final String errorMessage;
+
+  AddTaskError(this.errorMessage);
+}
