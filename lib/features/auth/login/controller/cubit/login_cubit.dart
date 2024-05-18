@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/features/Home.dart';
 
@@ -17,6 +20,22 @@ class LoginCubit extends Cubit<LoginState> {
         context,
         MaterialPageRoute(builder: (context) => const Home()),
       );
+    }
+  }
+
+  Future<void> LogIn(BuildContext context) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      Navigator.of(context).pushReplacementNamed('Home');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        log('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        log('Wrong password provided for that user.');
+      }
     }
   }
 }
