@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/view/page/category_page.dart';
+import 'package:flutter_project/features/dashboard/modules/profile/view/page/profile_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -40,7 +41,7 @@ class DashboardPage extends StatelessWidget {
               children: const [
                 TasksPage(),
                 CategoryPage(),
-                Text("Profile"),
+                ProfilePage(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

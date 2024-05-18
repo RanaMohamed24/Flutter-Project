@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -164,16 +165,21 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
                       onPressed: () async {
-                        // await (await DatabaseRepo.instance)
-                        //     .insert(name: 'Ahmed', address: 'Cairo');
-                        // log('Added successfully');
-                        //  controller.onPressedConfirmButton(context),
                         try {
-                          final credential = await FirebaseAuth.instance
+                          final UserCredential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: controller.emailController.text.trim(),
                             password: controller.passwordController.text.trim(),
                           );
+                          FirebaseFirestore.instance
+                              .collection("Users")
+                              .doc(UserCredential.user!.email)
+                              .set({
+                                "username":controller.firstNameController.text+" "
+                                          +controller.lastNameController.text ,
+                                "bio" : "empty bio",
+                                
+                              });
                           Navigator.of(context).pushReplacementNamed('Auth');
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
