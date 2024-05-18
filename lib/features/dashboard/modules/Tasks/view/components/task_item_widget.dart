@@ -15,10 +15,18 @@ class TaskItemWidget extends StatelessWidget {
         create: (context) => TaskCubit(),
         child: BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
           final TaskCubit controller = context.read<TaskCubit>();
-          return Card.outlined(
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 2, color: PrimaryColor),
+          return Container(
+            margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: SecondaryColor,
+                  offset: Offset(0, 2),
+                  blurRadius: 5.0,
+                ),
+              ],
             ),
             child: Row(
               children: [
@@ -26,8 +34,8 @@ class TaskItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10.0, right: 8, top: 7),
+                      padding: const EdgeInsets.only(
+                          left: 10.0, right: 8, top: 7, bottom: 7),
                       child: Text(
                         taskModel.title,
                         style: const TextStyle(
@@ -35,68 +43,6 @@ class TaskItemWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                      ),
-                      child: Text(
-                        taskModel.note ?? 'xxx',
-                        style: const TextStyle(
-                          color: SecondaryColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                      ),
-                      child: Text(
-                        taskModel.date,
-                        style: const TextStyle(
-                            color: SecondaryColor, fontSize: 16),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, bottom: 3),
-                          child: Text(
-                            taskModel.startTime ?? 'xxx',
-                            style: const TextStyle(
-                                color: SecondaryColor, fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, bottom: 3),
-                          child: Text(
-                            "-",
-                            style: const TextStyle(
-                                color: SecondaryColor, fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, bottom: 3),
-                          child: Text(
-                            taskModel.endTime ?? 'xxx',
-                            style: const TextStyle(
-                                color: SecondaryColor, fontSize: 16),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
