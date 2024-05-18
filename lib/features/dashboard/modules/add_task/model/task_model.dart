@@ -17,7 +17,7 @@ class TaskModel {
     required this.categoryId,
   });
 
-  TaskModel.fromJson(Map map)
+  TaskModel.fromJson(Map map) 
       : docId = map['docId']?.toString(),
         title = map['title']!,
         note = map['note'],

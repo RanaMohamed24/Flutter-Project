@@ -10,9 +10,7 @@ class LocalDb {
 
   Future<void> initTaskDb() async {
     final String taskDatabasePath = await getDatabasesPath();
-
     final path = join(taskDatabasePath, 'todolist.db');
-
     taskDb = await openDatabase(
       path,
       version: 1,
@@ -61,20 +59,14 @@ class LocalDb {
   }
 
   Future<List<CategoryModel>> fetchCategories() async {
-  try {
     final List<Map<String, dynamic>> categories = await taskDb.query('category');
     return categories.map((e) => CategoryModel(
           docId: e['docId'].toString(),
           name: e['name'] as String,
         )).toList();
-  } catch (error) {
-    print("Error fetching categories: $error");
-    rethrow;
   }
-}
 
   Future<List<TaskModel>> fetchTasksForCategory(String categoryId) async {
-  try {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
       'task',
       where: 'categoryId = ?',
@@ -89,14 +81,9 @@ class LocalDb {
           endTime: e['endTime'] as String?,
           categoryId: e['categoryId']?.toString(),
         )).toList();
-  } catch (error) {
-    print("Error fetching tasks for category: $error");
-    rethrow;
   }
-}
 
   Future<List<TaskModel>> fetch(String date) async {
-  try {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
       'task',
       where: 'date = ?',
@@ -111,11 +98,8 @@ class LocalDb {
           endTime: e['endTime'] as String?,
           categoryId: e['categoryId']?.toString(),
         )).toList();
-  } catch (error) {
-    print("Error fetching tasks: $error");
-    rethrow;
   }
-}
+
   Future<void> editTaskInfo(String title, String note, String date,
       String startTime, String endTime, String categoryId, String docId) async {
     await taskDb.update(
