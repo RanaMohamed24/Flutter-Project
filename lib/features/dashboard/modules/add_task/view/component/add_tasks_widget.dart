@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_state.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/category_model.dart';
@@ -28,10 +29,10 @@ class AddTasksWidget extends StatelessWidget {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: PrimaryColor,
-              title: const Center(
+              title: Center(
                 child: Text(
-                  "Add Task",
-                  style: TextStyle(
+                  "Add Task".translation,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -51,7 +52,7 @@ class AddTasksWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Title",
+                            "Title".translation,
                             style: addTaskTitle,
                           ),
                           SizedBox(
@@ -62,12 +63,12 @@ class AddTasksWidget extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               obscureText: false,
                               decoration: AddTaskFieldDecoration.copyWith(
-                                hintText: "Enter your title",
+                                hintText: "Enter your title".translation,
                               ),
                               controller: controller.titleController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'required field';
+                                  return 'required field'.translation;
                                 }
                                 return null;
                               },
@@ -81,7 +82,7 @@ class AddTasksWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Note",
+                              "Note".translation,
                               style: addTaskTitle,
                             ),
                             SizedBox(
@@ -92,7 +93,7 @@ class AddTasksWidget extends StatelessWidget {
                                 // keyboardType: TextInputType.name,
                                 obscureText: false,
                                 decoration: AddTaskFieldDecoration.copyWith(
-                                  hintText: "Enter your note",
+                                  hintText: "Enter your note".translation,
                                 ),
                                 controller: controller.noteController,
                               ),
@@ -106,7 +107,7 @@ class AddTasksWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Date",
+                              "Date".translation,
                               style: addTaskTitle,
                             ),
                             SizedBox(
@@ -133,7 +134,7 @@ class AddTasksWidget extends StatelessWidget {
                                 controller: controller.dateController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'required field';
+                                    return 'required field'.translation;
                                   }
                                   return null;
                                 },
@@ -151,7 +152,7 @@ class AddTasksWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Start Time",
+                                    "Start Time".translation,
                                     style: addTaskTitle,
                                   ),
                                   SizedBox(
@@ -190,7 +191,7 @@ class AddTasksWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "End Time",
+                                    "End Time".translation,
                                     style: addTaskTitle,
                                   ),
                                   SizedBox(
@@ -231,7 +232,7 @@ class AddTasksWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Category",
+                              "Category".translation,
                               style: addTaskTitle,
                             ),
                             SizedBox(
@@ -249,11 +250,12 @@ class AddTasksWidget extends StatelessWidget {
                                 },
                                 decoration: AddTaskFieldDecoration.copyWith(
                                   hintText: controller.selectedCategory?.name ??
-                                      "Select a category",
+                                      "Select a category".translation,
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please select a category';
+                                    return 'Please select a category'
+                                        .translation;
                                   }
                                   return null;
                                 },
@@ -276,13 +278,12 @@ class AddTasksWidget extends StatelessWidget {
                                     controller.addTask(context);
                                   },
                                   child: Text(
-                                    'Create',
+                                    'Create'.translation,
                                     style: textButton.copyWith(
                                         color: Colors.white),
                                   ),
                                 ),
                         ),
-
                       ),
                     ],
                   ),

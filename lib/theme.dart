@@ -2,6 +2,13 @@
 
 import 'package:flutter/material.dart';
 
+class MyTheme {
+  static final MyTheme instance = MyTheme();
+
+  ThemeData light = ThemeData.light(useMaterial3: true);
+  ThemeData dark = ThemeData.dark(useMaterial3: true);
+}
+
 const PrimaryColor = Color.fromARGB(255, 2, 82, 179);
 const SecondaryColor = Color.fromARGB(255, 55, 122, 230);
 const TextFieldColor = Color(0xffffffff);

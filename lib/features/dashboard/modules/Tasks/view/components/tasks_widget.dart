@@ -3,6 +3,7 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/controller/cubit/task_cubit.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +34,7 @@ class TasksWidget extends StatelessWidget {
                             style: subTitle,
                           ),
                           Text(
-                            "Today",
+                            "Today".translation,
                             style: titleText,
                           ),
                         ],
@@ -53,7 +54,7 @@ class TasksWidget extends StatelessWidget {
                           },
                           child: Center(
                             child: Text(
-                              "+ Add Task",
+                              "+ Add Task".translation,
                               style: textButton.copyWith(color: Colors.white),
                             ),
                           ),
