@@ -15,14 +15,9 @@ class ProfilePage extends StatelessWidget {
         builder: (context, state) {
           final ProfileCubit cotroller = context.read<ProfileCubit>();
           return Scaffold(
-            body: Column(
-              children: [
-                ProfileWidget(
-                  controller: cotroller)
-              ]
-                    
-             ),
-          );
+              body: ProfileWidget(
+            controller: cotroller,
+          ));
         },
       ),
     ));
