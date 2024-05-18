@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
 
@@ -19,9 +20,9 @@ class AddCategoryWidget extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: controller.categoryController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter new category',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      hintText: 'Enter new category'.translation,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -33,7 +34,7 @@ class AddCategoryWidget extends StatelessWidget {
                           .addCategory(controller.categoryController.text);
                     }
                   },
-                  child: const Text('Add'),
+                  child: Text('Add'.translation),
                 ),
               ],
             ),

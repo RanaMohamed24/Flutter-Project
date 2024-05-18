@@ -16,7 +16,7 @@ class UserData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: TextFieldColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: const [
           BoxShadow(

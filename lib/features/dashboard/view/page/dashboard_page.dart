@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/view/page/category_page.dart';
@@ -26,7 +27,7 @@ class DashboardPage extends StatelessWidget {
               backgroundColor: PrimaryColor,
               title: Center(
                 child: Text(
-                  titles[controller.selectedTapIndex],
+                  titles[controller.selectedTapIndex].translation,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -54,13 +55,16 @@ class DashboardPage extends StatelessWidget {
                   const TextStyle(fontSize: 15, color: SecondaryColor),
               selectedLabelStyle:
                   const TextStyle(fontSize: 15, color: PrimaryColor),
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.task_alt_rounded), label: "Tasks"),
+                    icon: const Icon(Icons.task_alt_rounded),
+                    label: "Tasks".translation),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.category_rounded), label: "Categories"),
+                    icon: const Icon(Icons.category_rounded),
+                    label: "Categories".translation),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: "Profile"),
+                    icon: const Icon(Icons.person),
+                    label: "Profile".translation),
               ],
             ),
           );
