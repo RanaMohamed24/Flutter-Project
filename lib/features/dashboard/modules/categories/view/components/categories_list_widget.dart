@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
+import 'package:flutter_project/features/dashboard/modules/manage_categories/view/page/manage_categories_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class CategoriesListWidget extends StatelessWidget {
@@ -35,41 +36,71 @@ class CategoriesListWidget extends StatelessWidget {
                   )
                 : Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: SizedBox(
-                      height: 40,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.categories.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.selectCategory(
-                                  controller.categories[index].name);
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
-                              decoration: BoxDecoration(
-                                color: controller.selectedCategory ==
-                                        controller.categories[index].name
-                                    ? PrimaryColor
-                                    : const Color.fromARGB(255, 104, 151, 228),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Text(
-                                controller.categories[index].name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.categories.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    controller.selectCategory(
+                                        controller.categories[index].name);
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 20),
+                                    decoration: BoxDecoration(
+                                      color: controller.selectedCategory ==
+                                              controller.categories[index].name
+                                          ? PrimaryColor
+                                          : const Color.fromARGB(
+                                              255, 104, 151, 228),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Text(
+                                      controller.categories[index].name,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                        PopupMenuButton(
+                          icon: const Icon(
+                            Icons.more_vert,
+                            color: PrimaryColor,
+                            size: 30,
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: 'manage_categories',
+                              child: const Text('Manage Categories'),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ManageCategoriesPage(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   );
       }),
