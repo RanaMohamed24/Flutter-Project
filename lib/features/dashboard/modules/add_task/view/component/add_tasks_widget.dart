@@ -66,6 +66,7 @@ class AddTasksWidget extends StatelessWidget {
                                 hintText: "Enter your title".translation,
                               ),
                               controller: controller.titleController,
+                              style: const TextStyle(color: SecondaryColor), 
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'required field'.translation;
@@ -90,12 +91,12 @@ class AddTasksWidget extends StatelessWidget {
                               child: TextFormField(
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                // keyboardType: TextInputType.name,
                                 obscureText: false,
                                 decoration: AddTaskFieldDecoration.copyWith(
                                   hintText: "Enter your note".translation,
                                 ),
                                 controller: controller.noteController,
+                                style: const TextStyle(color: SecondaryColor), 
                               ),
                             ),
                           ],
@@ -115,8 +116,8 @@ class AddTasksWidget extends StatelessWidget {
                               child: TextFormField(
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                keyboardType: TextInputType.name,
                                 obscureText: false,
+                                style: const TextStyle(color: SecondaryColor), 
                                 decoration: AddTaskFieldDecoration.copyWith(
                                   hintText: DateFormat.yMMMMd().format(
                                       controller.selectedDate ??
@@ -160,7 +161,7 @@ class AddTasksWidget extends StatelessWidget {
                                     child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
-                                      // keyboardType: TextInputType.name,
+                                      style: const TextStyle(color: SecondaryColor), 
                                       obscureText: false,
                                       decoration:
                                           AddTaskFieldDecoration.copyWith(
@@ -199,13 +200,14 @@ class AddTasksWidget extends StatelessWidget {
                                     child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
-                                      // keyboardType: TextInputType.name,
                                       obscureText: false,
+                                      style: const TextStyle(color: SecondaryColor), 
                                       decoration:
                                           AddTaskFieldDecoration.copyWith(
                                         hintText: DateFormat("hh:mm a").format(
                                             DateTime.now()
                                                 .add(const Duration(hours: 2))),
+                                                
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             controller
@@ -236,7 +238,7 @@ class AddTasksWidget extends StatelessWidget {
                               style: addTaskTitle,
                             ),
                             SizedBox(
-                              height: 70,
+                              height: 50,
                               child: DropdownButtonFormField<CategoryModel>(
                                 value: controller.selectedCategory,
                                 items: controller.categories
@@ -252,6 +254,7 @@ class AddTasksWidget extends StatelessWidget {
                                   hintText: controller.selectedCategory?.name ??
                                       "Select a category".translation,
                                 ),
+                                style: const TextStyle(color: SecondaryColor), 
                                 validator: (value) {
                                   if (value == null) {
                                     return 'Please select a category'
@@ -259,10 +262,14 @@ class AddTasksWidget extends StatelessWidget {
                                   }
                                   return null;
                                 },
+                                menuMaxHeight: 150,
                               ),
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 15,
                       ),
                       Center(
                         child: SizedBox(
