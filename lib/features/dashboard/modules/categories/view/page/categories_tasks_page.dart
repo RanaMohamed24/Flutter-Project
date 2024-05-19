@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
-import 'package:flutter_project/features/dashboard/modules/categories/view/components/add_category_widget.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/view/components/categories_list_widget.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/view/components/tasks_list_widget.dart';
 
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
+class CategoriesTasksPage extends StatelessWidget {
+  const CategoriesTasksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +26,9 @@ class CategoryPage extends StatelessWidget {
                     controller: controller,
                   ),
                   Expanded(
-                    child: TasksListWidget(
-                      controller: controller,
-                    )),
-                  AddCategoryWidget(
+                      child: TasksListWidget(
                     controller: controller,
-                  ),
+                  )),
                 ],
               ),
             );

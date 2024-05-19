@@ -100,6 +100,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       } else {
         categories = await LocalDb().fetchCategories();
       }
+      categories.removeWhere((category) => category.name == 'All');
       emit(CategoriesLoaded());
     } catch (e) {
       emit(AddTaskError(e.toString()));

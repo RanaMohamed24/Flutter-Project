@@ -18,77 +18,78 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
   final TextEditingController _categoryController = TextEditingController();
 
   List<CategoryModel> categories = [];
-  String selectedCategory = "";
+  String selectedCategory = "All";
   List<TaskModel> tasks = [];
 
   TextEditingController get categoryController => _categoryController;
 
   Future<void> fetchCategories() async {
-    try {
-      emit(CategoriesLoading());
-      final List<ConnectivityResult> connectivityResult =
-          await (Connectivity().checkConnectivity());
-      if (connectivityResult.contains(ConnectivityResult.mobile) ||
-          connectivityResult.contains(ConnectivityResult.wifi)) {
-        categories = await Firestore.instance.fetchCategories();
-      } else {
-        categories = await LocalDb().fetchCategories();
-      }
-      emit(CategoriesLoaded());
-    } catch (e) {
-      emit(CategoriesError(e.toString()));
+    emit(CategoriesLoading());
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      categories = await Firestore.instance.fetchCategories();
+    } else {
+      categories = await LocalDb().fetchCategories();
     }
-  }
 
-  Future<void> addCategory(String categoryName) async {
-    try {
-      emit(CategoriesLoading());
-      final List<ConnectivityResult> connectivityResult =
-          await (Connectivity().checkConnectivity());
-      if (connectivityResult.contains(ConnectivityResult.mobile) ||
-          connectivityResult.contains(ConnectivityResult.wifi)) {
-        await Firestore.instance.addCategory(categoryName);
-      } else {
-        await LocalDb().addCategory(categoryName);
-      }
-      categories.add(CategoryModel(docId: '', name: categoryName));
-      _categoryController.clear();
+    if (!categories.any((category) => category.name == 'All')) {
+      categories.insert(0, CategoryModel(docId: '0', name: 'All'));
+    }
+    categories = categories;
+    if (!isClosed) {
       emit(CategoriesLoaded());
-    } catch (e) {
-      emit(CategoriesError(e.toString()));
     }
   }
 
   Future<void> fetchTasksForCategory(String categoryId) async {
-    try {
-      emit(TasksLoading());
-      final List<ConnectivityResult> connectivityResult =
-          await (Connectivity().checkConnectivity());
-      if (connectivityResult.contains(ConnectivityResult.mobile) ||
-          connectivityResult.contains(ConnectivityResult.wifi)) {
-        tasks = await Firestore.instance.fetchTasksForCategory(categoryId);
+    emit(TasksLoading());
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      tasks = await Firestore.instance.fetchTasksForCategory(categoryId);
+    } else {
+      tasks = await LocalDb().fetchTasksForCategory(categoryId);
+    }
+    if (!isClosed) {
+      if (tasks.isEmpty) {
+        emit(TasksEmpty());
       } else {
-        tasks = await LocalDb().fetchTasksForCategory(categoryId);
+        emit(TasksLoaded(tasks: tasks));
       }
-      if (!isClosed) {
-        if (tasks.isEmpty) {
-          emit(TasksEmpty());
-        } else {
-          emit(TasksLoaded(tasks: tasks));
-        }
-      }
-    } catch (e) {
-      if (!isClosed) {
-        emit(TasksError(e.toString()));
+    }
+  }
+
+  Future<void> fetchAllTasks() async {
+    emit(TasksLoading());
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      tasks = await Firestore.instance.fetchAllTasks();
+    } else {
+      tasks = await LocalDb().fetchAllTasks();
+    }
+    if (!isClosed) {
+      if (tasks.isEmpty) {
+        emit(TasksEmpty());
+      } else {
+        emit(TasksLoaded(tasks: tasks));
       }
     }
   }
 
   void selectCategory(String category) {
     selectedCategory = category;
-    final String selectedCategoryId =
-        categories.firstWhere((c) => c.name == category).docId.toString();
-    fetchTasksForCategory(selectedCategoryId);
+    if (category == 'All') {
+      fetchAllTasks();
+    } else {
+      final String selectedCategoryId =
+          categories.firstWhere((c) => c.name == category).docId.toString();
+      fetchTasksForCategory(selectedCategoryId);
+    }
   }
 
   Future<void> delete(BuildContext context, String docId) async {
@@ -104,7 +105,7 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
     if (!isClosed) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  DashboardPage()),
+        MaterialPageRoute(builder: (context) => DashboardPage()),
       );
     }
   }

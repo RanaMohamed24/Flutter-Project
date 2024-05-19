@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
-import 'package:flutter_project/features/dashboard/modules/manage_categories/view/page/manage_categories_page.dart';
 import 'package:flutter_project/theme.dart';
 
 class CategoriesListWidget extends StatelessWidget {
@@ -87,15 +86,9 @@ class CategoriesListWidget extends StatelessWidget {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               value: 'manage_categories',
-                              child: const Text('Manage Categories'),
+                              child: const Text('Manage Categories', style: TextStyle(color: PrimaryColor),),
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ManageCategoriesPage(),
-                                  ),
-                                );
+                                Navigator.pushNamed(context, 'manageCategories');
                               },
                             ),
                           ],

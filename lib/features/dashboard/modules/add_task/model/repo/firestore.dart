@@ -10,36 +10,44 @@ class Firestore {
   CollectionReference Categories =
       FirebaseFirestore.instance.collection('Categories');
 
-  Future<void> addCategory(String name) async {
-    await Categories.add({'name': name});
-    print("Category Added");
+  Future<CategoryModel> addCategory(String name) async {
+    final DocumentReference newDoc = await Categories.add({'name': name});
+    return CategoryModel(docId: newDoc.id, name: name);
   }
 
   Future<List<CategoryModel>> fetchCategories() async {
-    final QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Categories').get();
-    return querySnapshot.docs.map((DocumentSnapshot document) {
-      return CategoryModel(
-        docId: document.id,
-        name: document['name'],
-      );
-    }).toList();
+  final QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('Categories').where('name', isNotEqualTo: 'All').get();
+  return querySnapshot.docs.map((DocumentSnapshot document) {
+    return CategoryModel(
+      docId: document.id,
+      name: document['name'],
+    );
+  }).toList();
+}
+
+  Future<void> updateCategory(String categoryId, String newName) async {
+    await Categories.doc(categoryId).update({'name': newName});
   }
 
-  Future<List<String>> fetchCategoryNames() async {
-    final QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Categories').get();
-    return querySnapshot.docs.map((DocumentSnapshot document) {
-      return document['name'] as String;
-    }).toList();
+  Future<void> deleteCategory(String categoryId) async {
+    await Categories.doc(categoryId).delete();
   }
 
   Future<List<TaskModel>> fetchTasksForCategory(String categoryId) async {
     final QuerySnapshot querySnapshot =
         await Tasks.where('categoryId', isEqualTo: categoryId).get();
     return querySnapshot.docs.map((DocumentSnapshot document) {
-      final Map<String, dynamic> data =
-          document.data() as Map<String, dynamic>;
+      final Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      data['docId'] = document.id;
+      return TaskModel.fromJson(data);
+    }).toList();
+  }
+
+  Future<List<TaskModel>> fetchAllTasks() async {
+    final QuerySnapshot querySnapshot = await Tasks.get();
+    return querySnapshot.docs.map((DocumentSnapshot document) {
+      final Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       data['docId'] = document.id;
       return TaskModel.fromJson(data);
     }).toList();
@@ -52,8 +60,7 @@ class Firestore {
         .get();
     final List<TaskModel> tasks = [];
     for (final DocumentSnapshot document in querySnapshot.docs) {
-      final Map<String, dynamic> data =
-          document.data() as Map<String, dynamic>;
+      final Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       data['docId'] = document.id;
       final TaskModel task = TaskModel.fromJson(data);
       tasks.add(task);
@@ -77,11 +84,9 @@ class Firestore {
       'endTime': endTime,
       'categoryId': categoryId,
     });
-    print("Task Added");
   }
 
   Future<void> delete({required String docId}) async {
     await Tasks.doc(docId).delete();
-    print('Deleted task');
   }
 }
