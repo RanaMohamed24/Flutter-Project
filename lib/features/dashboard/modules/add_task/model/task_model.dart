@@ -6,6 +6,7 @@ class TaskModel {
   final String? startTime;
   final String? endTime;
   final String? categoryId;
+  bool isChecked;
 
   TaskModel({
     this.docId,
@@ -15,14 +16,16 @@ class TaskModel {
     this.startTime,
     this.endTime,
     required this.categoryId,
+    this.isChecked = false,
   });
 
-  TaskModel.fromJson(Map map) 
+  TaskModel.fromJson(Map map)
       : docId = map['docId']?.toString(),
         title = map['title']!,
         note = map['note'],
         date = map['date']!,
         startTime = map['startTime'],
         endTime = map['endTime'],
-        categoryId = map['categoryId'];
+        categoryId = map['categoryId'],
+        isChecked = map['isChecked'] ?? false;
 }

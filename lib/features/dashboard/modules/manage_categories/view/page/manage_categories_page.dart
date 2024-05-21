@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/manage_categories/controller/cubit/manage_categories_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/manage_categories/controller/cubit/manage_categories_state.dart';
 import 'package:flutter_project/theme.dart';
@@ -43,10 +44,10 @@ class ManageCategoriesPage extends StatelessWidget {
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: PrimaryColor,
-                  title: const Center(
+                  title: Center(
                     child: Text(
-                      'Manage Categories',
-                      style: TextStyle(
+                      'Manage Categories'.translation,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -77,19 +78,20 @@ class ManageCategoriesPage extends StatelessWidget {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: const Text(
-                                              'Edit Category',
-                                              style: TextStyle(
+                                            title: Text(
+                                              'Edit Category'.translation,
+                                              style: const TextStyle(
                                                   color: PrimaryColor),
                                             ),
                                             content: TextField(
                                               controller:
                                                   controller.categoryController
                                                     ..text = category.name,
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
                                                 hintText:
-                                                    'Enter new category name',
-                                                hintStyle: TextStyle(
+                                                    'Enter new category name'
+                                                        .translation,
+                                                hintStyle: const TextStyle(
                                                     color: SecondaryColor),
                                               ),
                                             ),
@@ -98,9 +100,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: const Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  'Cancel'.translation,
+                                                  style: const TextStyle(
                                                       color: PrimaryColor),
                                                 ),
                                               ),
@@ -121,9 +123,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                                     Navigator.of(context).pop();
                                                   }
                                                 },
-                                                child: const Text(
-                                                  'Edit',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  'Save'.translation,
+                                                  style: const TextStyle(
                                                       color: PrimaryColor),
                                                 ),
                                               ),
@@ -143,9 +145,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: const Text(
-                                              'Delete Category',
-                                              style: TextStyle(
+                                            title: Text(
+                                              'Delete Category'.translation,
+                                              style: const TextStyle(
                                                   color: PrimaryColor),
                                             ),
                                             content: Text(
@@ -155,9 +157,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: const Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  'Cancel'.translation,
+                                                  style: const TextStyle(
                                                       color: PrimaryColor),
                                                 ),
                                               ),
@@ -167,9 +169,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                                       .deleteCategory(category);
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: const Text(
-                                                  'Delete',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  'Delete'.translation,
+                                                  style: const TextStyle(
                                                       color: PrimaryColor),
                                                 ),
                                               ),
@@ -198,15 +200,15 @@ class ManageCategoriesPage extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text(
-                            'Add New Category',
-                            style: TextStyle(color: PrimaryColor),
+                          title: Text(
+                            'Add New Category'.translation,
+                            style: const TextStyle(color: PrimaryColor),
                           ),
                           content: TextField(
                             controller: controller.categoryController,
-                            decoration: const InputDecoration(
-                              hintText: 'Enter category name',
-                              hintStyle: TextStyle(color: SecondaryColor),
+                            decoration: InputDecoration(
+                              hintText: 'Enter category name'.translation,
+                              hintStyle: const TextStyle(color: SecondaryColor),
                             ),
                           ),
                           actions: [
@@ -214,9 +216,9 @@ class ManageCategoriesPage extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: PrimaryColor),
+                              child: Text(
+                                'Cancel'.translation,
+                                style: const TextStyle(color: PrimaryColor),
                               ),
                             ),
                             TextButton(
@@ -231,9 +233,9 @@ class ManageCategoriesPage extends StatelessWidget {
                                   });
                                 }
                               },
-                              child: const Text(
-                                'Add',
-                                style: TextStyle(color: PrimaryColor),
+                              child: Text(
+                                'Add'.translation,
+                                style: const TextStyle(color: PrimaryColor),
                               ),
                             ),
                           ],

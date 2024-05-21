@@ -109,4 +109,9 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
       );
     }
   }
+
+  Future<void> toggleCheckbox(TaskModel task) async {
+    task.isChecked = !task.isChecked;
+    emit(TasksLoaded(tasks: tasks));
+  }
 }

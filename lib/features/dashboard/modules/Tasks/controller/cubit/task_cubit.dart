@@ -73,4 +73,9 @@ class TaskCubit extends Cubit<TaskState> {
       );
     }
   }
+
+  Future<void> toggleCheckbox(TaskModel task) async {
+    task.isChecked = !task.isChecked;
+    emit(TaskLoaded());
+  }
 }

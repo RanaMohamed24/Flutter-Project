@@ -22,6 +22,15 @@
     "Select a category":"اختر فئة",
     "Please select a category":"من فضلك اختر فئة",
     "Create":"أضف",
-    "Enter new category":"أدخل فئة جديدة",
-    "Add":"أضف"
+    "Enter category name":"أدخل اسم فئة",
+    "Add":"أضف",
+    "Manage Categories":"تحكم بالفئات",
+    "Edit Category":"تعديل فئة",
+    "Enter new category name":"ادخل اسم فئة جديد",
+    "Cancel":"الغاء",
+    "Save":"حفظ",
+    "Delete Category":"حذف فئة",
+    "Delete":"حذف",
+    "Add New Category":"أضف فئة جديدة",
+    "All":"الكل"
 }

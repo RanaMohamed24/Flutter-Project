@@ -34,6 +34,7 @@ class LocalDb {
       startTime TEXT,
       endTime TEXT,
       categoryId INTEGER,
+      isChecked INTEGER DEFAULT 0,
       FOREIGN KEY (categoryId) REFERENCES category(docId)
     )""");
 
@@ -86,6 +87,7 @@ class LocalDb {
       'startTime': startTime,
       'endTime': endTime,
       'categoryId': categoryId,
+      'isChecked': 0,
     });
     taskDb.close();
   }
@@ -105,6 +107,7 @@ class LocalDb {
               startTime: e['startTime'] as String?,
               endTime: e['endTime'] as String?,
               categoryId: e['categoryId']?.toString(),
+              isChecked: e['isChecked'] == 1,
             ))
         .toList();
   }
@@ -120,6 +123,7 @@ class LocalDb {
               startTime: e['startTime'] as String?,
               endTime: e['endTime'] as String?,
               categoryId: e['categoryId']?.toString(),
+              isChecked: e['isChecked'] == 1,
             ))
         .toList();
   }
@@ -139,6 +143,7 @@ class LocalDb {
               startTime: e['startTime'] as String?,
               endTime: e['endTime'] as String?,
               categoryId: e['categoryId']?.toString(),
+              isChecked: e['isChecked'] == 1,
             ))
         .toList();
   }

@@ -20,8 +20,17 @@
     "End Time":"End Time",
     "Category":"Category",
     "Select a category":"Select a category",
-    "Enter new category":"Enter new category",
+    "Enter category name":"Enter category name",
     "Create":"Create",
     "Please select a category":"Please select a category",
-    "Add":"Add"
+    "Add":"Add",
+    "Manage Categories":"Manage Categories",
+    "Edit Category":"Edit Category",
+    "Enter new category name":"Enter new category name",
+    "Cancel":"Cancel",
+    "Save":"Save",
+    "Delete Category":"Delete Category",
+    "Delete":"Delete",
+    "Add New Category":"Add New Category",
+    "All":"All"
 }

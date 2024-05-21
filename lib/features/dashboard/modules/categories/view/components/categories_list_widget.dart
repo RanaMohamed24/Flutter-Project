@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
 import 'package:flutter_project/theme.dart';
@@ -64,7 +65,10 @@ class CategoriesListWidget extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                     child: Text(
-                                      controller.categories[index].name,
+                                      controller.categories[index].name == "All"
+                                          ? controller.categories[index].name
+                                              .translation
+                                          : controller.categories[index].name,
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
@@ -86,9 +90,13 @@ class CategoriesListWidget extends StatelessWidget {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               value: 'manage_categories',
-                              child: const Text('Manage Categories', style: TextStyle(color: PrimaryColor),),
+                              child: Text(
+                                'Manage Categories'.translation,
+                                style: const TextStyle(color: PrimaryColor),
+                              ),
                               onTap: () {
-                                Navigator.pushNamed(context, 'manageCategories');
+                                Navigator.pushNamed(
+                                    context, 'manageCategories');
                               },
                             ),
                           ],

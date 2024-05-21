@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/core/build_context_extension.dart';
 
 part 'profile_state.dart';
 
@@ -40,11 +41,11 @@ class ProfileCubit extends Cubit<ProfileState> {
         ),
         actions: [
           TextButton(
-            child: const Text('cancel'),
+            child: Text('Cancel'.translation),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: const Text('save'),
+            child: Text('Save'.translation),
             onPressed: () => Navigator.of(context).pop(newValue),
           ),
         ],

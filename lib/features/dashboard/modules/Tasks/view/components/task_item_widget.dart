@@ -15,53 +15,68 @@ class TaskItemWidget extends StatelessWidget {
         create: (context) => TaskCubit(),
         child: BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
           final TaskCubit controller = context.read<TaskCubit>();
-          return Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: const [
-                BoxShadow(
-                  color: SecondaryColor,
-                  offset: Offset(0, 2),
-                  blurRadius: 5.0,
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, right: 8, top: 7, bottom: 7),
-                      child: Text(
-                        taskModel.title,
-                        style: const TextStyle(
-                            color: PrimaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
+          return GestureDetector(
+            onTap: () {
+              controller.toggleCheckbox(taskModel);
+            },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: const [
+                  BoxShadow(
+                    color: SecondaryColor,
+                    offset: Offset(0, 2),
+                    blurRadius: 5.0,
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Checkbox(
+                    value: taskModel.isChecked,
+                    onChanged: (newValue) {
+                      controller.toggleCheckbox(taskModel);
+                    },
+                    shape: CircleBorder(),
+                    side: MaterialStateBorderSide.resolveWith(
+                      (states) => BorderSide(
+                        width: 2.0,
+                        color: PrimaryColor,
                       ),
                     ),
-                  ],
-                ),
-                Spacer(),
-                IconButton(
-                  color: PrimaryColor,
-                  icon: const Icon(Icons.edit_note_outlined),
-                  onPressed: () {
-                    // edit task
-                  },
-                ),
-                IconButton(
-                  color: PrimaryColor,
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    controller.delete(context, taskModel.docId ?? " ");
-                  },
-                ),
-              ],
+                    activeColor: PrimaryColor,
+                    checkColor: Colors.white,
+                  ),
+                  Text(
+                    taskModel.title,
+                    style: TextStyle(
+                      color: PrimaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      decoration: taskModel.isChecked
+                          ? TextDecoration.lineThrough
+                          : null,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    color: PrimaryColor,
+                    icon: const Icon(Icons.edit_note_outlined),
+                    onPressed: () {
+                      // edit task
+                    },
+                  ),
+                  IconButton(
+                    color: PrimaryColor,
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      controller.delete(context, taskModel.docId ?? " ");
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         }));
