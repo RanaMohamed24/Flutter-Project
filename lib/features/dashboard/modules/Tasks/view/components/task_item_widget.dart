@@ -20,7 +20,7 @@ class TaskItemWidget extends StatelessWidget {
               controller.toggleCheckbox(taskModel);
             },
             child: Container(
-              margin: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+              margin:  EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(10.0),
@@ -63,10 +63,54 @@ class TaskItemWidget extends StatelessWidget {
                   Spacer(),
                   IconButton(
                     color: PrimaryColor,
-                    icon: const Icon(Icons.edit_note_outlined),
+                    icon:  Icon(Icons.edit_note_outlined),
                     onPressed: () {
                       // edit task
-                    },
+                        showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(
+                            "Edit Task",
+                            style: TextStyle(color: PrimaryColor),
+                          ),
+                          content: TextField(
+                            controller: controller.taskController
+                              ..text = taskModel.title,
+                            decoration: InputDecoration(
+                              hintText: "Enter new title",
+                              hintStyle: TextStyle(color: SecondaryColor),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child:  Text(
+                                "cancel",
+                                style: TextStyle(color: PrimaryColor),
+                              ),
+                            ),
+                            TextButton(onPressed: () {
+                              if (controller.taskController.text.isNotEmpty) {
+                                controller.updateTask(
+                                    taskModel, controller.taskController.text);
+                                controller.taskController.clear();
+                                Navigator.of(context).pop();
+                              }
+
+                            },
+                            child:Text ( 
+                              "Edit",
+                            style: TextStyle(color: PrimaryColor),
+                            ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   ),
                   IconButton(
                     color: PrimaryColor,

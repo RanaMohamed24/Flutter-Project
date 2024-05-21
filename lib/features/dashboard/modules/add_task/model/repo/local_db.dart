@@ -147,22 +147,16 @@ class LocalDb {
             ))
         .toList();
   }
-
-  Future<void> editTaskInfo(String title, String note, String date,
-      String startTime, String endTime, String categoryId, String docId) async {
+  Future<void> updateTasklocal(TaskModel task, String newTitle) async {
     await taskDb.update(
-        'task',
-        {
-          'title': title,
-          'note': note,
-          'date': date,
-          'startTime': startTime,
-          'endTime': endTime,
-          'categoryId': categoryId,
-        },
-        where: 'docId=?',
-        whereArgs: [docId]);
+      'tasks',
+      {'title': newTitle},
+      where: 'docId = ?',
+      whereArgs: [task.docId],
+    );
   }
+  
+  
 
   Future<void> delete({required String docId}) async {
     await taskDb.delete(

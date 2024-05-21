@@ -85,6 +85,9 @@ class Firestore {
       'categoryId': categoryId,
     });
   }
+   Future<void> updateTask({required docId, required String newTitle,}) async {
+    await Tasks.doc(docId).update({'title': newTitle});
+  }
 
   Future<void> delete({required String docId}) async {
     await Tasks.doc(docId).delete();

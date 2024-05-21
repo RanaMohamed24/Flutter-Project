@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
@@ -19,7 +20,10 @@ class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial()) {
     init();
   }
+  final TextEditingController _taskController = TextEditingController();
+  TextEditingController get taskController => _taskController;
 
+  List<TaskModel> tasks = [];
   DateTime selectedDate = DateTime.now();
 
   Future<void> onChangeDate(date) async {
@@ -27,7 +31,6 @@ class TaskCubit extends Cubit<TaskState> {
     await init();
   }
 
-  List<TaskModel> tasks = [];
   Future<void> init() async {
     if (isClosed) return;
     emit(TaskLoading());
@@ -51,7 +54,7 @@ class TaskCubit extends Cubit<TaskState> {
     if (tasks.isEmpty) {
       if (!isClosed) emit(TaskEmpty());
     } else {
-      if (!isClosed) emit(TaskLoaded());
+      if (!isClosed) emit(TaskLoaded(tasks: tasks));
     }
   }
 
@@ -76,6 +79,24 @@ class TaskCubit extends Cubit<TaskState> {
 
   Future<void> toggleCheckbox(TaskModel task) async {
     task.isChecked = !task.isChecked;
-    emit(TaskLoaded());
+    emit(TaskLoading());
   }
+
+  Future<void> updateTask(TaskModel task, String newTitle) async {
+    emit(TaskLoading());
+    final List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      await Firestore.instance
+          .updateTask(docId: task.docId, newTitle: newTitle);
+    } else {
+      await LocalDb().updateTasklocal(task, newTitle);
+    }
+    final index = tasks.indexWhere((c) => c.docId == task.docId);
+    tasks[index] = tasks[index].copyWith(title: newTitle);
+    emit(TaskLoaded(tasks: tasks));
+  
+  }
+ 
 }

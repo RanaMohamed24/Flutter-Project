@@ -18,6 +18,25 @@ class TaskModel {
     required this.categoryId,
     this.isChecked = false,
   });
+  TaskModel copyWith({
+    String? docId,
+    String? title,
+    String? note,
+    String? date,
+    String? startTime,
+    String? endTime,
+    String? categoryId,
+  }) {
+    return TaskModel(
+      docId: docId ?? this.docId,
+      title: title ?? this.title,
+      note: note ?? this.note,
+      date: date ?? this.date,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      categoryId: categoryId ?? this.categoryId,
+    );
+  }
 
   TaskModel.fromJson(Map map)
       : docId = map['docId']?.toString(),
