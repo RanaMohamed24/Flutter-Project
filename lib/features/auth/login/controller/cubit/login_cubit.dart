@@ -24,12 +24,15 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> LogIn(BuildContext context) async {
+   
     try {
+       emit(LoginLoading());
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
       Navigator.of(context).pushReplacementNamed('Home');
+      emit(LoginLoaded());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         log('No user found for that email.');

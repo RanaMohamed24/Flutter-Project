@@ -4,7 +4,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/registration/controller/cubit/registration_cubit.dart';
 import 'package:flutter_project/theme.dart';
@@ -157,10 +159,13 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: 350.0,
+                  Center(
+                    child:SizedBox(
+                    width: 150.0,
                     height: 50.0,
-                    child: FilledButton(
+                    child:state is RegistrationLoading?
+                      const Center(child: CircularProgressIndicator()) 
+                    : FilledButton(
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(PrimaryColor)),
@@ -172,6 +177,7 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                         style: textButton.copyWith(color: Colors.white),
                       ),
                     ),
+                  ),
                   ),
                 ],
               ),

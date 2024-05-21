@@ -24,7 +24,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   }
 
   Future<void> SignUp(BuildContext context) async {
+   
     try {
+       emit(RegistrationLoading());
       final UserCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -34,10 +36,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
           .collection("Users")
           .doc(UserCredential.user!.email)
           .set({
-                "username": firstNameController.text + " " + lastNameController.text,
-                "bio": "empty bio",
+        "username": firstNameController.text + " " + lastNameController.text,
+        "bio": "empty bio",
       });
       Navigator.of(context).pushReplacementNamed('Auth');
+      emit(RegistrationLoaded());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         log('The password provided is too weak.');
@@ -45,7 +48,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
         log('The account already exists for that email.');
       }
     } catch (e) {
-        log(e.toString());
+      log(e.toString());
     }
   }
 }

@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/forgetPassword/view/page/forgot_password.dart';
@@ -122,9 +121,11 @@ class RequiredBodyWidget extends StatelessWidget {
                   Padding(
                     padding: DefaultHorizontalPadding,
                     child: SizedBox(
-                      width: 350,
+                      width: 150.0,
                       height: 50,
-                      child: FilledButton(
+                      child: state is LoginLoading ?
+                        const Center(child: CircularProgressIndicator())
+                      : FilledButton(
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(PrimaryColor)),
