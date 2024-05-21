@@ -16,6 +16,16 @@ class RequiredBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: controller,
+       child: BlocListener<LoginCubit, LoginState>(
+       listener: (context, state) {
+        if (state is LoginError) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+        }
+      },
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           return SingleChildScrollView(
@@ -145,6 +155,7 @@ class RequiredBodyWidget extends StatelessWidget {
           );
         },
       ),
+      )
     );
   }
 }
