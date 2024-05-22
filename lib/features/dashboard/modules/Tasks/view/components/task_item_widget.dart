@@ -15,58 +15,53 @@ class TaskItemWidget extends StatelessWidget {
         create: (context) => TaskCubit(),
         child: BlocBuilder<TaskCubit, TaskState>(builder: (context, state) {
           final TaskCubit controller = context.read<TaskCubit>();
-          return GestureDetector(
-            onTap: () {
-              controller.toggleCheckbox(taskModel);
-            },
-            child: Container(
-              margin:  EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
-              decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: SecondaryColor,
-                    offset: Offset(0, 2),
-                    blurRadius: 5.0,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: taskModel.isChecked,
-                    onChanged: (newValue) {
-                      controller.toggleCheckbox(taskModel);
-                    },
-                    shape: CircleBorder(),
-                    side: MaterialStateBorderSide.resolveWith(
-                      (states) => BorderSide(
-                        width: 2.0,
-                        color: PrimaryColor,
-                      ),
-                    ),
-                    activeColor: PrimaryColor,
-                    checkColor: Colors.white,
-                  ),
-                  Text(
-                    taskModel.title,
-                    style: TextStyle(
+          return Container(
+            margin: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: SecondaryColor,
+                  offset: Offset(0, 2),
+                  blurRadius: 5.0,
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Checkbox(
+                  value: taskModel.isChecked,
+                  onChanged: (newValue) {
+                    controller.toggleCheckbox(taskModel);
+                  },
+                  shape: CircleBorder(),
+                  side: MaterialStateBorderSide.resolveWith(
+                    (states) => BorderSide(
+                      width: 2.0,
                       color: PrimaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      decoration: taskModel.isChecked
-                          ? TextDecoration.lineThrough
-                          : null,
                     ),
                   ),
-                  Spacer(),
-                  IconButton(
+                  activeColor: PrimaryColor,
+                  checkColor: Colors.white,
+                ),
+                Text(
+                  taskModel.title,
+                  style: TextStyle(
                     color: PrimaryColor,
-                    icon:  Icon(Icons.edit_note_outlined),
-                    onPressed: () {
-                      // edit task
-                        showDialog(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    decoration:
+                        taskModel.isChecked ? TextDecoration.lineThrough : null,
+                  ),
+                ),
+                Spacer(),
+                IconButton(
+                  color: PrimaryColor,
+                  icon: Icon(Icons.edit_note_outlined),
+                  onPressed: () {
+                    // edit task
+                    showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
@@ -87,40 +82,39 @@ class TaskItemWidget extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child:  Text(
+                              child: Text(
                                 "cancel",
                                 style: TextStyle(color: PrimaryColor),
                               ),
                             ),
-                            TextButton(onPressed: () {
-                              if (controller.taskController.text.isNotEmpty) {
-                                controller.updateTask(
-                                    taskModel, controller.taskController.text);
-                                controller.taskController.clear();
-                                Navigator.of(context).pop();
-                              }
-
-                            },
-                            child:Text ( 
-                              "Edit",
-                            style: TextStyle(color: PrimaryColor),
-                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (controller.taskController.text.isNotEmpty) {
+                                  controller.updateTask(taskModel,
+                                      controller.taskController.text);
+                                  controller.taskController.clear();
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              child: Text(
+                                "Edit",
+                                style: TextStyle(color: PrimaryColor),
+                              ),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  ),
-                  IconButton(
-                    color: PrimaryColor,
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      controller.delete(context, taskModel.docId ?? " ");
-                    },
-                  ),
-                ],
-              ),
+                ),
+                IconButton(
+                  color: PrimaryColor,
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    controller.delete(context, taskModel.docId ?? " ");
+                  },
+                ),
+              ],
             ),
           );
         }));

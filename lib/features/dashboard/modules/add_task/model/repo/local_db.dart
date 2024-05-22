@@ -26,7 +26,7 @@ class LocalDb {
 
   static Future<void> _createTables(Database taskdb, _) async {
     await taskdb.execute("""
-    CREATE TABLE task (
+    CREATE TABLE taskss (
       docId INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
       note TEXT,
@@ -80,7 +80,7 @@ class LocalDb {
 
   Future<void> addTask(String title, String note, String date, String startTime,
       String endTime, String categoryId) async {
-    await taskDb.insert('task', {
+    await taskDb.insert('taskss', {
       'title': title,
       'note': note,
       'date': date,
@@ -94,7 +94,7 @@ class LocalDb {
 
   Future<List<TaskModel>> fetchTasksForCategory(String categoryId) async {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
-      'task',
+      'taskss',
       where: 'categoryId = ?',
       whereArgs: [categoryId],
     );
@@ -113,7 +113,7 @@ class LocalDb {
   }
 
   Future<List<TaskModel>> fetchAllTasks() async {
-    final List<Map<String, dynamic>> tasks = await taskDb.query('task');
+    final List<Map<String, dynamic>> tasks = await taskDb.query('taskss');
     return tasks
         .map((e) => TaskModel(
               docId: e['docId']?.toString(),
@@ -130,7 +130,7 @@ class LocalDb {
 
   Future<List<TaskModel>> fetch(String date) async {
     final List<Map<String, dynamic>> tasks = await taskDb.query(
-      'task',
+      'taskss',
       where: 'date = ?',
       whereArgs: [date],
     );
@@ -147,20 +147,19 @@ class LocalDb {
             ))
         .toList();
   }
+
   Future<void> updateTasklocal(TaskModel task, String newTitle) async {
     await taskDb.update(
-      'tasks',
+      'taskss',
       {'title': newTitle},
       where: 'docId = ?',
       whereArgs: [task.docId],
     );
   }
-  
-  
 
   Future<void> delete({required String docId}) async {
     await taskDb.delete(
-      'task',
+      'taskss',
       where: 'docId=?',
       whereArgs: [docId],
     );
