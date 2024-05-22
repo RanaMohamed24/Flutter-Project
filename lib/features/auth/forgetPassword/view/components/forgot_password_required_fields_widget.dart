@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/forgetPassword/controller/cubit/forget_password_cubit.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class ForgotPasswordRequiredFieldsWidget extends StatelessWidget {
   const ForgotPasswordRequiredFieldsWidget(

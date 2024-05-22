@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/registration/controller/cubit/registration_cubit.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 import 'package:flutter_project/features/auth/login/view/page/login_page.dart';
 
@@ -160,24 +160,24 @@ class RegistrationRequiredFieldsWidget extends StatelessWidget {
                     height: 20,
                   ),
                   Center(
-                    child:SizedBox(
-                    width: 150.0,
-                    height: 50.0,
-                    child:state is RegistrationLoading?
-                      const Center(child: CircularProgressIndicator()) 
-                    : FilledButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(PrimaryColor)),
-                      onPressed: () {
-                        controller.SignUp(context);
-                      },
-                      child: Text(
-                        'Confirm',
-                        style: textButton.copyWith(color: Colors.white),
-                      ),
+                    child: SizedBox(
+                      width: 150.0,
+                      height: 50.0,
+                      child: state is RegistrationLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : FilledButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(PrimaryColor)),
+                              onPressed: () {
+                                controller.SignUp(context);
+                              },
+                              child: Text(
+                                'Confirm',
+                                style: textButton.copyWith(color: Colors.white),
+                              ),
+                            ),
                     ),
-                  ),
                   ),
                 ],
               ),

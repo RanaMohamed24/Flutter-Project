@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/verfication/cubit/verification_cubit.dart';
 import 'package:flutter_project/features/auth/verfication/view/page/verfication.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class VerificationRequiredFieldsWidget extends StatelessWidget {
   const VerificationRequiredFieldsWidget({super.key, required this.controller});

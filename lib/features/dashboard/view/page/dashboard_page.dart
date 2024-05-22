@@ -8,7 +8,7 @@ import 'package:flutter_project/features/dashboard/controller/cubit/dashboard_cu
 import 'package:flutter_project/features/dashboard/modules/Tasks/view/page/Tasks_page.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/view/page/categories_tasks_page.dart';
 import 'package:flutter_project/features/dashboard/modules/profile/view/page/profile_page.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class DashboardPage extends StatelessWidget {
   final List<String> titles = const ['Tasks', 'Categories', 'Profile'];
@@ -24,6 +24,7 @@ class DashboardPage extends StatelessWidget {
           DashboardCubit controller = context.read<DashboardCubit>();
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: PrimaryColor,
               title: Center(
                 child: Text(

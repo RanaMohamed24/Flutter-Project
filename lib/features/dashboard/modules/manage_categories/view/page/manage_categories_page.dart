@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/manage_categories/controller/cubit/manage_categories_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/manage_categories/controller/cubit/manage_categories_state.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class ManageCategoriesPage extends StatelessWidget {
   const ManageCategoriesPage({super.key});
@@ -221,9 +221,11 @@ class ManageCategoriesPage extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              if (controller.categoryController.text.isNotEmpty) {
+                              if (controller
+                                  .categoryController.text.isNotEmpty) {
                                 controller
-                                    .addCategory(controller.categoryController.text)
+                                    .addCategory(
+                                        controller.categoryController.text)
                                     .then((_) {
                                   Navigator.of(context).pop();
                                 });

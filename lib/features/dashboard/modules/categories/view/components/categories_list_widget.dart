@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/core/build_context_extension.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class CategoriesListWidget extends StatelessWidget {
   const CategoriesListWidget({super.key, required this.controller});

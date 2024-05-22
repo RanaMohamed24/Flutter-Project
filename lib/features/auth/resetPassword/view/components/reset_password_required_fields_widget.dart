@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/resetPassword/controller/cubit/reset_password_cubit.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 import 'package:flutter_project/core/utilities/validation.dart';
 
 class ResetPasswordRequiredFieldsWidget extends StatelessWidget {
@@ -60,8 +60,7 @@ class ResetPasswordRequiredFieldsWidget extends StatelessWidget {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'required field';
-                        } 
-                        else if (value !=
+                        } else if (value !=
                             controller.passwordController.text) {
                           return 'Passwords do not match';
                         }

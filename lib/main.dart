@@ -6,7 +6,7 @@ import 'package:flutter_project/core/firebase/my-firebase.dart';
 import 'package:flutter_project/core/utilities/my_routes.dart';
 import 'package:flutter_project/features/auth/onboarding/view/page/onboarding.dart';
 import 'package:flutter_project/features/dashboard/view/page/dashboard_page.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {

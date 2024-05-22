@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/auth/onboarding/controller/cubit/onboarding_controller_cubit.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class OnboardingButtonsWidget extends StatelessWidget {
   OnboardingButtonsWidget({super.key, required this.controller});

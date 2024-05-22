@@ -7,7 +7,7 @@ import 'package:flutter_project/core/cubit/parent_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/profile/controller/cubit/profile_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/profile/view/components/profile_image.dart';
 import 'package:flutter_project/features/dashboard/modules/profile/view/components/user_data.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key, required ProfileCubit controller});

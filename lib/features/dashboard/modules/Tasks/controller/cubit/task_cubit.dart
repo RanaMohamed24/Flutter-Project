@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
@@ -96,7 +95,5 @@ class TaskCubit extends Cubit<TaskState> {
     final index = tasks.indexWhere((c) => c.docId == task.docId);
     tasks[index] = tasks[index].copyWith(title: newTitle);
     emit(TaskLoaded(tasks: tasks));
-  
   }
- 
 }

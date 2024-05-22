@@ -11,7 +11,7 @@ import 'package:flutter_project/features/dashboard/modules/add_task/controller/c
 import 'package:flutter_project/features/dashboard/modules/add_task/controller/cubit/add_tasks_state.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/category_model.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/repo/firestore.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 import 'package:intl/intl.dart';
 
 class AddTasksWidget extends StatelessWidget {
@@ -66,7 +66,7 @@ class AddTasksWidget extends StatelessWidget {
                                 hintText: "Enter your title".translation,
                               ),
                               controller: controller.titleController,
-                              style: const TextStyle(color: SecondaryColor), 
+                              style: const TextStyle(color: SecondaryColor),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'required field'.translation;
@@ -96,7 +96,7 @@ class AddTasksWidget extends StatelessWidget {
                                   hintText: "Enter your note".translation,
                                 ),
                                 controller: controller.noteController,
-                                style: const TextStyle(color: SecondaryColor), 
+                                style: const TextStyle(color: SecondaryColor),
                               ),
                             ),
                           ],
@@ -117,7 +117,7 @@ class AddTasksWidget extends StatelessWidget {
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 obscureText: false,
-                                style: const TextStyle(color: SecondaryColor), 
+                                style: const TextStyle(color: SecondaryColor),
                                 decoration: AddTaskFieldDecoration.copyWith(
                                   hintText: DateFormat.yMMMMd().format(
                                       controller.selectedDate ??
@@ -161,7 +161,8 @@ class AddTasksWidget extends StatelessWidget {
                                     child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
-                                      style: const TextStyle(color: SecondaryColor), 
+                                      style: const TextStyle(
+                                          color: SecondaryColor),
                                       obscureText: false,
                                       decoration:
                                           AddTaskFieldDecoration.copyWith(
@@ -201,13 +202,13 @@ class AddTasksWidget extends StatelessWidget {
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
                                       obscureText: false,
-                                      style: const TextStyle(color: SecondaryColor), 
+                                      style: const TextStyle(
+                                          color: SecondaryColor),
                                       decoration:
                                           AddTaskFieldDecoration.copyWith(
                                         hintText: DateFormat("hh:mm a").format(
                                             DateTime.now()
                                                 .add(const Duration(hours: 2))),
-                                                
                                         suffixIcon: IconButton(
                                           onPressed: () {
                                             controller
@@ -254,14 +255,7 @@ class AddTasksWidget extends StatelessWidget {
                                   hintText: controller.selectedCategory?.name ??
                                       "Select a category".translation,
                                 ),
-                                style: const TextStyle(color: SecondaryColor), 
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please select a category'
-                                        .translation;
-                                  }
-                                  return null;
-                                },
+                                style: const TextStyle(color: SecondaryColor),
                                 menuMaxHeight: 150,
                               ),
                             ),

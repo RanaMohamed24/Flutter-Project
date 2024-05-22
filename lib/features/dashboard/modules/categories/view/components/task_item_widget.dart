@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_cubit.dart';
 import 'package:flutter_project/features/dashboard/modules/categories/controller/cubit/categories_tasks_state.dart';
-import 'package:flutter_project/theme.dart';
+import 'package:flutter_project/core/utilities/theme.dart';
 
 class CategoryTaskItemWidget extends StatelessWidget {
   const CategoryTaskItemWidget({super.key, required this.taskModel});
@@ -46,17 +46,71 @@ class CategoryTaskItemWidget extends StatelessWidget {
                   activeColor: PrimaryColor,
                   checkColor: Colors.white,
                 ),
-                Text(
-                  taskModel.title,
-                  style: TextStyle(
-                    color: PrimaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    decoration:
-                        taskModel.isChecked ? TextDecoration.lineThrough : null,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          taskModel.title,
+                          style: TextStyle(
+                            color: PrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            decoration: taskModel.isChecked
+                                ? TextDecoration.lineThrough
+                                : null,
+                          ),
+                        ),
+                      ),
+                      if (taskModel.note != null && taskModel.note!.isNotEmpty)
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            taskModel.note!,
+                            style: const TextStyle(
+                              color: SecondaryColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      Row(
+                        children: [
+                          if (taskModel.startTime != null &&
+                              taskModel.startTime!.isNotEmpty)
+                            Text(
+                              taskModel.startTime!,
+                              style: const TextStyle(
+                                color: SecondaryColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                          if (taskModel.startTime != null &&
+                              taskModel.startTime!.isNotEmpty &&
+                              taskModel.endTime != null &&
+                              taskModel.endTime!.isNotEmpty)
+                            const Text(
+                              " - ",
+                              style: TextStyle(
+                                color: SecondaryColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                          if (taskModel.endTime != null &&
+                              taskModel.endTime!.isNotEmpty)
+                            Text(
+                              taskModel.endTime!,
+                              style: const TextStyle(
+                                color: SecondaryColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                const Spacer(),
                 IconButton(
                   color: PrimaryColor,
                   icon: const Icon(Icons.edit_note_outlined),
