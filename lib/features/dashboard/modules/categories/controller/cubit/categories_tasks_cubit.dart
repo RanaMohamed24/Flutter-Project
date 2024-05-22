@@ -16,6 +16,8 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
   }
 
   final TextEditingController _categoryController = TextEditingController();
+  final TextEditingController _taskController = TextEditingController();
+  TextEditingController get taskController => _taskController;
 
   List<CategoryModel> categories = [];
   String selectedCategory = "All";
@@ -108,6 +110,26 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
         MaterialPageRoute(builder: (context) => DashboardPage()),
       );
     }
+  }
+
+  Future<void> updateTask(TaskModel task, String newTitle) async {
+    emit(TasksLoading());
+    final List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      await Firestore.instance
+          .updateTask(docId: task.docId, newTitle: newTitle);
+    } else {
+      await LocalDb().updateTasklocal(task, newTitle);
+    }
+    final index = tasks.indexWhere((t) => t.docId == task.docId);
+    if (index != -1) {
+      tasks[index] = tasks[index].copyWith(title: newTitle);
+    } else {
+      tasks.add(task.copyWith(title: newTitle));
+    }
+    emit(TasksLoaded(tasks: tasks));
   }
 
   Future<void> toggleCheckbox(TaskModel task) async {

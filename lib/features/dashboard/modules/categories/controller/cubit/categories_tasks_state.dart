@@ -9,14 +9,10 @@ class CategoriesLoading extends CategoriesTasksState {}
 class CategoriesLoaded extends CategoriesTasksState {}
 class CategoriesEmpty extends CategoriesTasksState {}
 
-class TasksLoading extends CategoriesTasksState {}
-
-class TasksLoaded extends CategoriesTasksState {
-  final List<TaskModel> tasks;
+final class TasksLoading extends CategoriesTasksState {}
+final class TasksLoaded extends CategoriesTasksState {
+   final List<TaskModel> tasks;
 
   TasksLoaded({required this.tasks});
 }
-
-class TasksEmpty extends CategoriesTasksState {}
-
-
+final class TasksEmpty extends CategoriesTasksState{}

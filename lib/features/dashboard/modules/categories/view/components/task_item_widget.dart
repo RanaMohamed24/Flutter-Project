@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/features/dashboard/modules/add_task/model/task_model.dart';
@@ -116,6 +118,50 @@ class CategoryTaskItemWidget extends StatelessWidget {
                   icon: const Icon(Icons.edit_note_outlined),
                   onPressed: () {
                     // edit task
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text(
+                            "Edit Task",
+                            style: TextStyle(color: PrimaryColor),
+                          ),
+                          content: TextField(
+                            controller: controller.taskController
+                              ..text = taskModel.title,
+                            decoration: const InputDecoration(
+                              hintText: "Enter new title",
+                              hintStyle: TextStyle(color: SecondaryColor),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                "cancel",
+                                style: const TextStyle(color: PrimaryColor),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (controller.taskController.text.isNotEmpty) {
+                                  controller.updateTask(taskModel,
+                                      controller.taskController.text);
+                                  controller.taskController.clear();
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              child: const Text(
+                                "Edit",
+                                style: TextStyle(color: PrimaryColor),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
                 IconButton(
