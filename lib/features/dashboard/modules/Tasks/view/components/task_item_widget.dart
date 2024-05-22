@@ -9,6 +9,7 @@ import 'package:flutter_project/core/utilities/theme.dart';
 class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({super.key, required this.taskModel});
   final TaskModel taskModel;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -31,7 +32,7 @@ class TaskItemWidget extends StatelessWidget {
             child: Row(
               children: [
                 Checkbox(
-                  value: taskModel.isChecked,
+                  value: taskModel.isChecked ?? false,
                   onChanged: (newValue) {
                     controller.toggleCheckbox(taskModel);
                   },

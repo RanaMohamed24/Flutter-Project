@@ -77,9 +77,27 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   Future<void> toggleCheckbox(TaskModel task) async {
-    task.isChecked = !task.isChecked;
-    emit(TaskLoading());
+  final index = tasks.indexWhere((c) => c.docId == task.docId);
+  tasks[index] = tasks[index].copyWith(isChecked: !task.isChecked);
+  emit(TaskLoaded(tasks: tasks));
+
+  final List<ConnectivityResult> connectivityResult =
+      await Connectivity().checkConnectivity();
+  if (connectivityResult.contains(ConnectivityResult.mobile) ||
+      connectivityResult.contains(ConnectivityResult.wifi)) {
+    await Firestore.instance.updateTask(
+      docId: task.docId!,
+      newTitle: task.title,
+      isChecked: !task.isChecked,
+    );
+  } else {
+    await LocalDb().updateTasklocal(
+      task,
+      task.title,
+      !task.isChecked,
+    );
   }
+}
 
   Future<void> updateTask(TaskModel task, String newTitle) async {
     emit(TaskLoading());
@@ -87,10 +105,17 @@ class TaskCubit extends Cubit<TaskState> {
         await Connectivity().checkConnectivity();
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
-      await Firestore.instance
-          .updateTask(docId: task.docId, newTitle: newTitle);
+      await Firestore.instance.updateTask(
+        docId: task.docId!,
+        newTitle: newTitle,
+        isChecked: task.isChecked,
+      );
     } else {
-      await LocalDb().updateTasklocal(task, newTitle);
+      await LocalDb().updateTasklocal(
+        task,
+        newTitle,
+        task.isChecked,
+      );
     }
     final index = tasks.indexWhere((c) => c.docId == task.docId);
     tasks[index] = tasks[index].copyWith(title: newTitle);

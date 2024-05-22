@@ -122,6 +122,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
             startTime: startTimeController.text,
             endTime: endTimeController.text,
             categoryId: selectedCategory?.docId ?? '',
+            isChecked: false,
           );
           Navigator.push(
             context,

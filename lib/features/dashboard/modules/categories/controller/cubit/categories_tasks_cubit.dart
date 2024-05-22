@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, await_only_futures
 
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,22 +47,15 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
     }
   }
 
-  Future<void> fetchTasksForCategory(String categoryId) async {
+  Future<List<TaskModel>> fetchTasksForCategory(String categoryId) async {
     emit(TasksLoading());
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
-      tasks = await Firestore.instance.fetchTasksForCategory(categoryId);
+      return await Firestore.instance.fetchTasksForCategory(categoryId);
     } else {
-      tasks = await LocalDb().fetchTasksForCategory(categoryId);
-    }
-    if (!isClosed) {
-      if (tasks.isEmpty) {
-        emit(TasksEmpty());
-      } else {
-        emit(TasksLoaded(tasks: tasks));
-      }
+      return await LocalDb().fetchTasksForCategory(categoryId);
     }
   }
 
@@ -112,16 +107,19 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
     }
   }
 
-  Future<void> updateTask(TaskModel task, String newTitle) async {
+  Future<void> updateTask(
+      TaskModel task, String newTitle, bool isChecked) async {
     emit(TasksLoading());
     final List<ConnectivityResult> connectivityResult =
         await Connectivity().checkConnectivity();
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
-      await Firestore.instance
-          .updateTask(docId: task.docId, newTitle: newTitle);
+      await Firestore.instance.updateTask(
+          docId: task.docId as String,
+          newTitle: newTitle,
+          isChecked: task.isChecked);
     } else {
-      await LocalDb().updateTasklocal(task, newTitle);
+      await LocalDb().updateTasklocal(task, newTitle, isChecked);
     }
     final index = tasks.indexWhere((t) => t.docId == task.docId);
     if (index != -1) {
@@ -133,7 +131,33 @@ class CategoriesTasksCubit extends Cubit<CategoriesTasksState> {
   }
 
   Future<void> toggleCheckbox(TaskModel task) async {
-    task.isChecked = !task.isChecked;
-    emit(TasksLoaded(tasks: tasks));
+    emit(TasksLoading());
+
+    final List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      await Firestore.instance.updateTask(
+        docId: task.docId!,
+        newTitle: task.title,
+        isChecked: !task.isChecked,
+      );
+    } else {
+      await LocalDb().updateTasklocal(
+        task,
+        task.title,
+        !task.isChecked,
+      );
+    }
+
+    final updatedTasks = await fetchTasksForCategory(task.categoryId as String);
+    final index = updatedTasks.indexWhere((c) => c.docId == task.docId);
+    if (index != -1) {
+      updatedTasks[index] =
+          updatedTasks[index].copyWith(isChecked: !task.isChecked);
+      emit(TasksLoaded(tasks: updatedTasks));
+    } else {
+      log('Task not found in the tasks list');
+    }
   }
 }

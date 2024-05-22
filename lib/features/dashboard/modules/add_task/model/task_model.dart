@@ -26,6 +26,7 @@ class TaskModel {
     String? startTime,
     String? endTime,
     String? categoryId,
+    bool? isChecked,
   }) {
     return TaskModel(
       docId: docId ?? this.docId,
@@ -35,6 +36,7 @@ class TaskModel {
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       categoryId: categoryId ?? this.categoryId,
+      isChecked: isChecked ?? this.isChecked,
     );
   }
 

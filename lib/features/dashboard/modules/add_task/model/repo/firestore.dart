@@ -16,15 +16,17 @@ class Firestore {
   }
 
   Future<List<CategoryModel>> fetchCategories() async {
-  final QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection('Categories').where('name', isNotEqualTo: 'All').get();
-  return querySnapshot.docs.map((DocumentSnapshot document) {
-    return CategoryModel(
-      docId: document.id,
-      name: document['name'],
-    );
-  }).toList();
-}
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Categories')
+        .where('name', isNotEqualTo: 'All')
+        .get();
+    return querySnapshot.docs.map((DocumentSnapshot document) {
+      return CategoryModel(
+        docId: document.id,
+        name: document['name'],
+      );
+    }).toList();
+  }
 
   Future<void> updateCategory(String categoryId, String newName) async {
     await Categories.doc(categoryId).update({'name': newName});
@@ -75,6 +77,7 @@ class Firestore {
     String? startTime,
     String? endTime,
     required String categoryId,
+    required bool isChecked,
   }) async {
     await Tasks.add({
       "title": title,
@@ -83,10 +86,19 @@ class Firestore {
       'startTime': startTime,
       'endTime': endTime,
       'categoryId': categoryId,
+      'isChecked': isChecked,
     });
   }
-   Future<void> updateTask({required docId, required String newTitle,}) async {
-    await Tasks.doc(docId).update({'title': newTitle});
+
+  Future<void> updateTask({
+    required String docId,
+    required String newTitle,
+    required bool isChecked,
+  }) async {
+    await Tasks.doc(docId).update({
+      'title': newTitle,
+      'isChecked': isChecked,
+    });
   }
 
   Future<void> delete({required String docId}) async {

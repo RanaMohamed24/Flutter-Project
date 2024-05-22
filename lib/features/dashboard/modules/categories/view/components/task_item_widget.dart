@@ -10,6 +10,7 @@ import 'package:flutter_project/core/utilities/theme.dart';
 class CategoryTaskItemWidget extends StatelessWidget {
   const CategoryTaskItemWidget({super.key, required this.taskModel});
   final TaskModel taskModel;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -147,8 +148,10 @@ class CategoryTaskItemWidget extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 if (controller.taskController.text.isNotEmpty) {
-                                  controller.updateTask(taskModel,
-                                      controller.taskController.text);
+                                  controller.updateTask(
+                                      taskModel,
+                                      controller.taskController.text,
+                                      taskModel.isChecked);
                                   controller.taskController.clear();
                                   Navigator.of(context).pop();
                                 }

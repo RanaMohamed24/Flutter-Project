@@ -10,7 +10,7 @@ class LocalDb {
 
   Future<void> initTaskDb() async {
     final String taskDatabasePath = await getDatabasesPath();
-    final path = join(taskDatabasePath, 'todolist.db');
+    final path = join(taskDatabasePath, 'todolist1.db');
     taskDb = await openDatabase(
       path,
       version: 1,
@@ -148,10 +148,14 @@ class LocalDb {
         .toList();
   }
 
-  Future<void> updateTasklocal(TaskModel task, String newTitle) async {
+  Future<void> updateTasklocal(
+      TaskModel task, String newTitle, bool isChecked) async {
     await taskDb.update(
       'taskss',
-      {'title': newTitle},
+      {
+        'title': newTitle,
+        'isChecked': isChecked ? 1 : 0,
+      },
       where: 'docId = ?',
       whereArgs: [task.docId],
     );
