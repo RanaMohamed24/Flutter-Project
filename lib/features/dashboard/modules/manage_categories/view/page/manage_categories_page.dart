@@ -19,46 +19,44 @@ class ManageCategoriesPage extends StatelessWidget {
             final ManageCategoriesCubit controller =
                 context.read<ManageCategoriesCubit>();
 
-            if (state is ManageCategoriesLoading) {
-              return const Scaffold(
-                backgroundColor: Colors.white,
-                body: Center(
-                  child: CircularProgressIndicator(
-                    color: PrimaryColor,
-                  ),
-                ),
-              );
-            } else if (state is ManageCategoriesEmpty) {
-              return const Scaffold(
-                backgroundColor: Colors.white,
-                body: Center(
-                  child: Icon(
-                    CupertinoIcons.delete,
-                    size: 100,
-                    color: Colors.grey,
-                  ),
-                ),
-              );
-            } else if (state is ManageCategoriesLoaded) {
-              return Scaffold(
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  backgroundColor: PrimaryColor,
-                  title: Center(
-                    child: Text(
-                      'Manage Categories'.translation,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: PrimaryColor,
+                title: Center(
+                  child: Text(
+                    'Manage Categories'.translation,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    if (state is ManageCategoriesLoading)
+                      const Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: PrimaryColor,
+                          ),
+                        ),
+                      )
+                    else if (state is ManageCategoriesEmpty)
+                      const Expanded(
+                        child: Center(
+                          child: Icon(
+                            CupertinoIcons.delete,
+                            size: 100,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      )
+                    else if (state is ManageCategoriesLoaded)
                       Expanded(
                         child: ListView.builder(
                           itemCount: state.categories.length,
@@ -191,65 +189,60 @@ class ManageCategoriesPage extends StatelessWidget {
                           },
                         ),
                       ),
-                    ],
-                  ),
+                  ],
                 ),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(
-                            'Add New Category'.translation,
-                            style: const TextStyle(color: PrimaryColor),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Add New Category'.translation,
+                          style: const TextStyle(color: PrimaryColor),
+                        ),
+                        content: TextField(
+                          controller: controller.categoryController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter category name'.translation,
+                            hintStyle: const TextStyle(color: SecondaryColor),
                           ),
-                          content: TextField(
-                            controller: controller.categoryController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter category name'.translation,
-                              hintStyle: const TextStyle(color: SecondaryColor),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Cancel'.translation,
+                              style: const TextStyle(color: PrimaryColor),
                             ),
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                'Cancel'.translation,
-                                style: const TextStyle(color: PrimaryColor),
-                              ),
+                          TextButton(
+                            onPressed: () {
+                              if (controller.categoryController.text.isNotEmpty) {
+                                controller
+                                    .addCategory(controller.categoryController.text)
+                                    .then((_) {
+                                  Navigator.of(context).pop();
+                                });
+                              }
+                            },
+                            child: Text(
+                              'Add'.translation,
+                              style: const TextStyle(color: PrimaryColor),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                if (controller
-                                    .categoryController.text.isNotEmpty) {
-                                  controller
-                                      .addCategory(
-                                          controller.categoryController.text)
-                                      .then((_) {
-                                    Navigator.of(context).pop();
-                                  });
-                                }
-                              },
-                              child: Text(
-                                'Add'.translation,
-                                style: const TextStyle(color: PrimaryColor),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  backgroundColor: PrimaryColor,
-                  child: const Icon(Icons.add, color: Colors.white),
-                ),
-              );
-            } else {
-              return const Scaffold();
-            }
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                backgroundColor: PrimaryColor,
+                child: const Icon(Icons.add, color: Colors.white),
+              ),
+            );
           },
         ),
       ),
